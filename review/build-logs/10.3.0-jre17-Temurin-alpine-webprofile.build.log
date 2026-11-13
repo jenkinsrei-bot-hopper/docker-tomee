@@ -1,21 +1,20 @@
-STEP 1/12: FROM eclipse-temurin:17-jre-alpine
-Resolving "eclipse-temurin" using unqualified-search registries (/home/ubuntu/.config/containers/registries.conf)
+Source commit: 78b8b8e777df44091537d5f2e1fe7ad3d9359f3f
+Builder: Buildah VFS/chroot, host network, --pull=always --no-cache
+
+STEP 1/11: FROM eclipse-temurin:17-jre-alpine
 Trying to pull docker.io/library/eclipse-temurin:17-jre-alpine...
 Getting image source signatures
 Copying blob sha256:5a1d02633a996e89809e5ec77ed71a8ec39581554fbb82ae1d86ca5ff7613e95
 Copying blob sha256:881fc932939efef04ca120ad44bbd2c0917851eb247aa4995428afb1e80ede17
-Copying blob sha256:1cd29f11df7190b54d024588b636720cf0dce330a910e4b9e777e712485e9c2b
 Copying blob sha256:62fc65da0c5fbc0036993160c5218ccf5f099137891cc3173dd0584fe80ca6ec
 Copying blob sha256:a2c1466a5ca3232269f244aa3094532f0316913add44aba17d25893be1044bc4
+Copying blob sha256:1cd29f11df7190b54d024588b636720cf0dce330a910e4b9e777e712485e9c2b
 Copying config sha256:bf5ee33acf101a1eb81c8b78916a84c0fb3665a808ad9f8b2ceedfb74a40ec70
 Writing manifest to image destination
-STEP 2/12: ENV PATH=/usr/local/tomee/bin:$PATH
---> 212cb6b44038
-STEP 3/12: RUN mkdir -p /usr/local/tomee ~/.gnupg
---> 4b528fd8abac
-STEP 4/12: WORKDIR /usr/local/tomee
---> d3085f3986e2
-STEP 5/12: RUN apk add --no-cache gpg gpg-agent dirmngr curl   && rm -rf /var/cache/apk/*
+STEP 2/11: ENV PATH=/usr/local/tomee/bin:$PATH
+STEP 3/11: RUN mkdir -p /usr/local/tomee ~/.gnupg
+STEP 4/11: WORKDIR /usr/local/tomee
+STEP 5/11: RUN apk add --no-cache gpg gpg-agent dirmngr curl   && rm -rf /var/cache/apk/*
 (1/5) Installing c-ares (1.34.9-r0)
 (2/5) Installing nghttp2-libs (1.70.0-r0)
 (3/5) Installing libpsl (0.21.5-r3)
@@ -23,17 +22,151 @@ STEP 5/12: RUN apk add --no-cache gpg gpg-agent dirmngr curl   && rm -rf /var/ca
 (5/5) Installing curl (8.23.0-r0)
 Executing busybox-1.37.0-r31.trigger
 OK: 42.4 MiB in 78 packages
---> 3bb7cc2959a6
-STEP 6/12: ENV TOMEE_VER=10.3.0
---> d298672df552
-STEP 7/12: ENV TOMEE_BUILD=webprofile
---> b87750ef506b
-STEP 8/12: ENV TOMEE_SHA512=6c0ca666939535e3d4fb091e9155e85fd2dfe6f4f84035f84cb156574ce48c7a920d3f58ba3c1485a9a81b4735b96a1491f36776f17ab2a0084e3b8eb979b167
---> f82899dd5bcb
-STEP 9/12: ENV TOMEE_GPG_KEY=85FBBE98D6C37CDA8A7D8FF9F9FF83A48D339D37
---> 1f839a924dbb
-STEP 10/12: RUN set -eux;     ddist() {         local f="$1"; shift;         local distFile="$1"; shift;         local success=;         local distUrl=;         for distUrl in             https://downloads.apache.org/             https://archive.apache.org/dist/         ; do             if curl -fSL --retry 3 --connect-timeout 30 "$distUrl$distFile" -o "$f" && [ -s "$f" ]; then                 success=1;                 break;             fi;         done;         [ -n "$success" ];     };     archive="apache-tomee-${TOMEE_VER}-${TOMEE_BUILD}.tar.gz";     ddist "$archive" "tomee/tomee-${TOMEE_VER}/$archive";     ddist "$archive.asc" "tomee/tomee-${TOMEE_VER}/$archive.asc";     ddist tomee.KEYS tomee/KEYS;     echo "$TOMEE_SHA512  $archive" | sha512sum -c -;     export GNUPGHOME="$(mktemp -d)";     gpg --batch --import tomee.KEYS;     gpg --batch --export "$TOMEE_GPG_KEY" > tomee.gpg;     test -s tomee.gpg;     gpg --batch --no-default-keyring --keyring "$(pwd)/tomee.gpg" --verify "$archive.asc" "$archive";     tar -zxf "$archive";     mv "apache-tomee-${TOMEE_BUILD}-${TOMEE_VER}"/* /usr/local/tomee/;     rm -rf "apache-tomee-${TOMEE_BUILD}-${TOMEE_VER}" "$GNUPGHOME";     rm "$archive" "$archive.asc" tomee.KEYS tomee.gpg;     rm bin/*.bat;     rm bin/*.exe;     rm bin/*.tar.gz*
-+ archive=apache-tomee-10.3.0-webprofile.tar.gz
+STEP 6/11: RUN set -xe;   for key in   9056B710F1E332780DE7AF34CBAEBE39A46C4CA1   F067B8140F5DD80E1D3B5D92318242FE9A0B1183   223D3A74B068ECA354DC385CE126833F9CF64915   DBCCD103B8B24F86FFAAB025C8BB472CD297D428   7A2744A8A9AAF063C23EB7868EBE7DBE8D050EEF   B8B301E6105DF628076BD92C5483E55897ABD9B9   FAA603D58B1BA4EDF65896D0ED340E0E6D545F97   A57DAF81C1B69921F4BA8723A8DE0A4DB863A7C1   82D8419BA697F0E7FB85916EE91287822FDB81B1   B7574789F5018690043E6DD9C212662E12F3E1DD   C23A3F6F595EBD0F960270CC997C8F1A5BE6E4C1   678F2D98F1FD9643811639FB622B8F2D043F71D8   BDD0BBEB753192957EFC5F896A62FC8EF17D8FEF   D11DF12CC2CA4894BDE638B967C1227A2678363C   C92604B0DEC5C62CFF5801E73D4683C24EDC64D1   626C542EDA7C113814B77AF09C04914D63645D20   3948829384B269D333CC5B98358807C52B4B0E23   B83D15E72253ED1104EB4FBBDAB472F0E5B8A431   871638A21A7F2C38066471420306A354336B4F0D   85FBBE98D6C37CDA8A7D8FF9F9FF83A48D339D37   ; do     gpg --batch --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys "$key" ||     gpg --batch --keyserver hkp://pgp.mit.edu:80 --recv-keys "$key" ;   done
++ gpg --batch --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 9056B710F1E332780DE7AF34CBAEBE39A46C4CA1
+gpg: WARNING: unsafe permissions on homedir '/root/.gnupg'
+gpg: keybox '/root/.gnupg/pubring.kbx' created
+gpg: /root/.gnupg/trustdb.gpg: trustdb created
+gpg: key CBAEBE39A46C4CA1: public key "Matt Hogstrom <hogstrom@apache.org>" imported
+gpg: Total number processed: 1
+gpg:               imported: 1
++ gpg --batch --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys F067B8140F5DD80E1D3B5D92318242FE9A0B1183
+gpg: WARNING: unsafe permissions on homedir '/root/.gnupg'
+gpg: key 318242FE9A0B1183: public key "Jeremy Whitlock <jwhitlock@apache.org>" imported
+gpg: Total number processed: 1
+gpg:               imported: 1
++ gpg --batch --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 223D3A74B068ECA354DC385CE126833F9CF64915
+gpg: WARNING: unsafe permissions on homedir '/root/.gnupg'
+gpg: key E126833F9CF64915: public key "Richard Kenneth McGuire (CODE SIGNING KEY) <rickmcguire@apache.org>" imported
+gpg: Total number processed: 1
+gpg:               imported: 1
++ gpg --batch --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys DBCCD103B8B24F86FFAAB025C8BB472CD297D428
+gpg: WARNING: unsafe permissions on homedir '/root/.gnupg'
+gpg: key C8BB472CD297D428: public key "Jonathan Gallimore <jgallimore@apache.org>" imported
+gpg: Total number processed: 1
+gpg:               imported: 1
++ gpg --batch --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 7A2744A8A9AAF063C23EB7868EBE7DBE8D050EEF
+gpg: WARNING: unsafe permissions on homedir '/root/.gnupg'
+gpg: key 8EBE7DBE8D050EEF: public key "Jarek Gawor (CODE SIGNING KEY) <gawor@apache.org>" imported
+gpg: Total number processed: 1
+gpg:               imported: 1
++ gpg --batch --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys B8B301E6105DF628076BD92C5483E55897ABD9B9
+gpg: WARNING: unsafe permissions on homedir '/root/.gnupg'
+gpg: key 5483E55897ABD9B9: public key "Jarek Gawor <gawor@apache.org>" imported
+gpg: Total number processed: 1
+gpg:               imported: 1
++ gpg --batch --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys FAA603D58B1BA4EDF65896D0ED340E0E6D545F97
+gpg: WARNING: unsafe permissions on homedir '/root/.gnupg'
+gpg: key ED340E0E6D545F97: public key "Andy Gumbrecht (TomEE Code Signing) <agumbrecht@tomitribe.com>" imported
+gpg: Total number processed: 1
+gpg:               imported: 1
++ gpg --batch --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys A57DAF81C1B69921F4BA8723A8DE0A4DB863A7C1
+gpg: WARNING: unsafe permissions on homedir '/root/.gnupg'
+gpg: key A8DE0A4DB863A7C1: public key "Romain Manni-Bucau <rmannibucau@tomitribe.com>" imported
+gpg: Total number processed: 1
+gpg:               imported: 1
++ gpg --batch --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 82D8419BA697F0E7FB85916EE91287822FDB81B1
+gpg: WARNING: unsafe permissions on homedir '/root/.gnupg'
+gpg: key E91287822FDB81B1: public key "Mark Struberg (Apache) <struberg@apache.org>" imported
+gpg: Total number processed: 1
+gpg:               imported: 1
++ gpg --batch --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys B7574789F5018690043E6DD9C212662E12F3E1DD
+gpg: WARNING: unsafe permissions on homedir '/root/.gnupg'
+gpg: key C212662E12F3E1DD: public key "David Blevins <dblevins@apache.org>" imported
+gpg: Total number processed: 1
+gpg:               imported: 1
++ gpg --batch --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys C23A3F6F595EBD0F960270CC997C8F1A5BE6E4C1
+gpg: WARNING: unsafe permissions on homedir '/root/.gnupg'
+gpg: key 997C8F1A5BE6E4C1: public key "Xu Hai Hong (Ivan Xu @ Geronimo) <xhhsld@gmail.com>" imported
+gpg: Total number processed: 1
+gpg:               imported: 1
++ gpg --batch --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 678F2D98F1FD9643811639FB622B8F2D043F71D8
+gpg: WARNING: unsafe permissions on homedir '/root/.gnupg'
+gpg: key 622B8F2D043F71D8: public key "Jean-Louis Monteiro (CODE SIGNING KEY) <jlmonteiro@apache.org>" imported
+gpg: Total number processed: 1
+gpg:               imported: 1
++ gpg --batch --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys BDD0BBEB753192957EFC5F896A62FC8EF17D8FEF
+gpg: WARNING: unsafe permissions on homedir '/root/.gnupg'
+gpg: key 6A62FC8EF17D8FEF: public key "Romain Manni-Bucau <rmannibucau@apache.org>" imported
+gpg: Total number processed: 1
+gpg:               imported: 1
++ gpg --batch --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys D11DF12CC2CA4894BDE638B967C1227A2678363C
+gpg: WARNING: unsafe permissions on homedir '/root/.gnupg'
+gpg: key 67C1227A2678363C: public key "Romain Manni-Bucau <rmannibucau@apache.org>" imported
+gpg: Total number processed: 1
+gpg:               imported: 1
++ gpg --batch --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys C92604B0DEC5C62CFF5801E73D4683C24EDC64D1
+gpg: WARNING: unsafe permissions on homedir '/root/.gnupg'
+gpg: key 3D4683C24EDC64D1: public key "Roberto Cortez (Apache Signing Key) <radcortez@yahoo.com>" imported
+gpg: Total number processed: 1
+gpg:               imported: 1
++ gpg --batch --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 626C542EDA7C113814B77AF09C04914D63645D20
+gpg: WARNING: unsafe permissions on homedir '/root/.gnupg'
+gpg: key 9C04914D63645D20: public key "David Blevins <dblevins@tomitribe.com>" imported
+gpg: Total number processed: 1
+gpg:               imported: 1
++ gpg --batch --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3948829384B269D333CC5B98358807C52B4B0E23
+gpg: WARNING: unsafe permissions on homedir '/root/.gnupg'
+gpg: key 358807C52B4B0E23: public key "Jean-Louis Monteiro (CODE SIGNING KEY) <jlmonteiro@apache.org>" imported
+gpg: Total number processed: 1
+gpg:               imported: 1
++ gpg --batch --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys B83D15E72253ED1104EB4FBBDAB472F0E5B8A431
+gpg: WARNING: unsafe permissions on homedir '/root/.gnupg'
+gpg: key DAB472F0E5B8A431: public key "Richard Zowalla (Code Signing Key) <rzo1@apache.org>" imported
+gpg: Total number processed: 1
+gpg:               imported: 1
++ gpg --batch --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 871638A21A7F2C38066471420306A354336B4F0D
+gpg: WARNING: unsafe permissions on homedir '/root/.gnupg'
+gpg: key 0306A354336B4F0D: 2 duplicate signatures removed
+gpg: key 0306A354336B4F0D: public key "Jonathan S. Fisher <exabrial@gmail.com>" imported
+gpg: Total number processed: 1
+gpg:               imported: 1
++ gpg --batch --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 85FBBE98D6C37CDA8A7D8FF9F9FF83A48D339D37
+gpg: WARNING: unsafe permissions on homedir '/root/.gnupg'
+gpg: key F9FF83A48D339D37: public key "Markus Jung (CODE SIGNING KEY) <jungm@apache.org>" imported
+gpg: Total number processed: 1
+gpg:               imported: 1
+STEP 7/11: ENV TOMEE_VER=10.3.0
+STEP 8/11: ENV TOMEE_BUILD=webprofile
+STEP 9/11: RUN set -eux; 	ddist() { 		local f="$1"; shift; 		local distFile="$1"; shift; 		local success=; 		local distUrl=; 		for distUrl in 			https://dlcdn.apache.org/ 			https://archive.apache.org/dist/ 		; do 			if curl -fSL "$distUrl$distFile" -o "$f" && [ -s "$f" ]; then 				success=1; 				break; 			fi; 		done; 		[ -n "$success" ]; 	};   ddist tomee.tar.gz.asc tomee/tomee-${TOMEE_VER}/apache-tomee-${TOMEE_VER}-${TOMEE_BUILD}.tar.gz.asc   && ddist tomee.tar.gz.sha512 tomee/tomee-${TOMEE_VER}/apache-tomee-${TOMEE_VER}-${TOMEE_BUILD}.tar.gz.sha512   && ddist apache-tomee-${TOMEE_VER}-${TOMEE_BUILD}.tar.gz tomee/tomee-${TOMEE_VER}/apache-tomee-${TOMEE_VER}-${TOMEE_BUILD}.tar.gz   && gpg --batch --verify tomee.tar.gz.asc apache-tomee-${TOMEE_VER}-${TOMEE_BUILD}.tar.gz   && sed "s/\t/  /" tomee.tar.gz.sha512 | sha512sum -c -   && tar -zxf apache-tomee-${TOMEE_VER}-${TOMEE_BUILD}.tar.gz   && mv apache-tomee-${TOMEE_BUILD}-${TOMEE_VER}/* /usr/local/tomee   && rm apache-tomee-${TOMEE_VER}-${TOMEE_BUILD}.tar.gz   && rm -Rf apache-tomee-${TOMEE_BUILD}-${TOMEE_VER}   && rm bin/*.bat   && rm bin/*.exe   && rm bin/*.tar.gz*   && rm tomee.tar.gz.asc   && rm tomee.tar.gz*
++ ddist tomee.tar.gz.asc tomee/tomee-10.3.0/apache-tomee-10.3.0-webprofile.tar.gz.asc
++ local 'f=tomee.tar.gz.asc'
++ shift
++ local 'distFile=tomee/tomee-10.3.0/apache-tomee-10.3.0-webprofile.tar.gz.asc'
++ shift
++ local 'success='
++ local 'distUrl='
++ curl -fSL https://dlcdn.apache.org/tomee/tomee-10.3.0/apache-tomee-10.3.0-webprofile.tar.gz.asc -o tomee.tar.gz.asc
+  % Total    % Received % Xferd  Average Speed  Time    Time    Time   Current
+                                 Dload  Upload  Total   Spent   Left   Speed
+
+  0      0   0      0   0      0      0      0                              0
+100    870 100    870   0      0    972      0                              0
+100    870 100    870   0      0    972      0                              0
+100    870 100    870   0      0    972      0                              0
++ '[' -s tomee.tar.gz.asc ]
++ success=1
++ break
++ '[' -n 1 ]
++ ddist tomee.tar.gz.sha512 tomee/tomee-10.3.0/apache-tomee-10.3.0-webprofile.tar.gz.sha512
++ local 'f=tomee.tar.gz.sha512'
++ shift
++ local 'distFile=tomee/tomee-10.3.0/apache-tomee-10.3.0-webprofile.tar.gz.sha512'
++ shift
++ local 'success='
++ local 'distUrl='
++ curl -fSL https://dlcdn.apache.org/tomee/tomee-10.3.0/apache-tomee-10.3.0-webprofile.tar.gz.sha512 -o tomee.tar.gz.sha512
+  % Total    % Received % Xferd  Average Speed  Time    Time    Time   Current
+                                 Dload  Upload  Total   Spent   Left   Speed
+
+  0      0   0      0   0      0      0      0                              0
+100    166 100    166   0      0    143      0   00:01   00:01              0
+100    166 100    166   0      0    143      0   00:01   00:01              0
+100    166 100    166   0      0    143      0   00:01   00:01              0
++ '[' -s tomee.tar.gz.sha512 ]
++ success=1
++ break
++ '[' -n 1 ]
 + ddist apache-tomee-10.3.0-webprofile.tar.gz tomee/tomee-10.3.0/apache-tomee-10.3.0-webprofile.tar.gz
 + local 'f=apache-tomee-10.3.0-webprofile.tar.gz'
 + shift
@@ -41,155 +174,405 @@ STEP 10/12: RUN set -eux;     ddist() {         local f="$1"; shift;         loc
 + shift
 + local 'success='
 + local 'distUrl='
-+ curl -fSL --retry 3 --connect-timeout 30 https://downloads.apache.org/tomee/tomee-10.3.0/apache-tomee-10.3.0-webprofile.tar.gz -o apache-tomee-10.3.0-webprofile.tar.gz
++ curl -fSL https://dlcdn.apache.org/tomee/tomee-10.3.0/apache-tomee-10.3.0-webprofile.tar.gz -o apache-tomee-10.3.0-webprofile.tar.gz
   % Total    % Received % Xferd  Average Speed  Time    Time    Time   Current
                                  Dload  Upload  Total   Spent   Left   Speed
 
   0      0   0      0   0      0      0      0                              0
-  0 58.68M   0 148.3k   0      0  92955      0   11:01   00:01   11:00 147.3k
-  1 58.68M   1 703.0k   0      0 266.5k      0   03:45   00:02   03:43 349.7k
-  2 58.68M   2  1.18M   0      0 333.6k      0   03:00   00:03   02:57 402.9k
-  2 58.68M   2  1.66M   0      0 367.4k      0   02:43   00:04   02:39 424.7k
-  4 58.68M   4  2.44M   0      0 441.9k      0   02:15   00:05   02:10 497.0k
-  6 58.68M   6  3.57M   0      0 549.0k      0   01:49   00:06   01:43 698.1k
-  8 58.68M   8  4.94M   0      0 659.8k      0   01:31   00:07   01:24 865.9k
- 10 58.68M  10  6.25M   0      0 738.6k      0   01:21   00:08   01:13  1.00M
- 11 58.68M  11  7.03M   0      0 744.6k      0   01:20   00:09   01:11  1.06M
- 14 58.68M  14  8.38M   0      0 804.4k      0   01:14   00:10   01:04  1.18M
- 16 58.68M  16  9.63M   0      0 845.2k      0   01:11   00:11   01:00  1.20M
- 19 58.68M  19 11.39M   0      0 920.5k      0   01:05   00:12   00:53  1.28M
- 22 58.68M  22 13.03M   0      0 975.3k      0   01:01   00:13   00:48  1.35M
- 24 58.68M  24 14.49M   0      0  0.98M      0   00:59   00:14   00:45  1.48M
- 25 58.68M  25 15.18M   0      0 990.9k      0   01:00   00:15   00:45  1.35M
- 27 58.68M  27 16.04M   0      0 983.9k      0   01:01   00:16   00:45  1.27M
- 28 58.68M  28 16.86M   0      0 975.8k      0   01:01   00:17   00:44  1.08M
- 29 58.68M  29 17.41M   0      0 953.7k      0   01:03   00:18   00:45 894.5k
- 31 58.68M  31 18.62M   0      0 967.2k      0   01:02   00:19   00:43 841.3k
- 32 58.68M  32 19.27M   0      0 952.9k      0   01:03   00:20   00:43 833.9k
- 34 58.68M  34 20.01M   0      0 943.5k      0   01:03   00:21   00:42 809.2k
- 37 58.68M  37 21.97M   0      0 990.5k      0   01:00   00:22   00:38  1.01M
- 39 58.68M  39 22.89M   0      0 988.1k      0   01:00   00:23   00:37  1.08M
- 40 58.68M  40 23.75M   0      0 983.8k      0   01:01   00:24   00:37  1.02M
- 43 58.68M  43 25.27M   0      0  0.98M      0   00:59   00:25   00:34  1.19M
- 45 58.68M  45 26.74M   0      0  1.00M      0   00:58   00:26   00:32  1.34M
- 47 58.68M  47 28.03M   0      0  1.01M      0   00:58   00:27   00:31  1.20M
- 51 58.68M  51 30.50M   0      0  1.06M      0   00:55   00:28   00:27  1.51M
- 56 58.68M  56 32.91M   0      0  1.10M      0   00:53   00:29   00:24  1.82M
- 58 58.68M  58 34.44M   0      0  1.12M      0   00:52   00:30   00:22  1.82M
- 62 58.68M  62 36.65M   0      0  1.15M      0   00:50   00:31   00:19  1.97M
- 66 58.68M  66 38.80M   0      0  1.18M      0   00:49   00:32   00:17  2.13M
- 68 58.68M  68 40.35M   0      0  1.19M      0   00:49   00:33   00:16  1.95M
- 72 58.68M  72 42.33M   0      0  1.21M      0   00:48   00:34   00:14  1.86M
- 76 58.68M  76 45.18M   0      0  1.26M      0   00:46   00:35   00:11  2.12M
- 80 58.68M  80 47.01M   0      0  1.27M      0   00:45   00:36   00:09  2.05M
- 81 58.68M  81 47.98M   0      0  1.26M      0   00:46   00:37   00:09  1.82M
- 83 58.68M  83 48.98M   0      0  1.26M      0   00:46   00:38   00:08  1.71M
- 85 58.68M  85 49.94M   0      0  1.25M      0   00:46   00:39   00:07  1.50M
- 86 58.68M  86 50.75M   0      0  1.24M      0   00:47   00:40   00:07  1.09M
- 87 58.68M  87 51.59M   0      0  1.23M      0   00:47   00:41   00:06 923.6k
- 89 58.68M  89 52.59M   0      0  1.22M      0   00:47   00:42   00:05 928.1k
- 90 58.68M  90 53.35M   0      0  1.21M      0   00:48   00:43   00:05 883.9k
- 91 58.68M  91 53.87M   0      0  1.19M      0   00:48   00:44   00:04 795.9k
- 92 58.68M  92 54.39M   0      0  1.18M      0   00:49   00:45   00:04 744.3k
- 93 58.68M  93 54.89M   0      0  1.16M      0   00:50   00:46   00:04 673.6k
- 94 58.68M  94 55.18M   0      0  1.15M      0   00:50   00:47   00:03 528.5k
- 94 58.68M  94 55.73M   0      0  1.13M      0   00:51   00:48   00:03 485.0k
- 97 58.68M  97 57.17M   0      0  1.14M      0   00:51   00:49   00:02 676.0k
- 98 58.68M  98 57.75M   0      0  1.13M      0   00:51   00:50   00:01 686.9k
- 99 58.68M  99 58.28M   0      0  1.12M      0   00:52   00:51   00:01 692.8k
- 99 58.68M  99 58.61M   0      0  1.10M      0   00:52   00:52         701.9k
-100 58.68M 100 58.68M   0      0  1.10M      0   00:53   00:53         701.9k
-100 58.68M 100 58.68M   0      0  1.10M      0   00:53   00:53         701.9k
-100 58.68M 100 58.68M   0      0  1.10M      0   00:53   00:53         701.9k
+  0      0   0      0   0      0      0      0           00:02              0
+  0 58.68M   0   7101   0      0   2340      0 7:18:15   00:03 7:18:12   2853
+  0 58.68M   0 112.0k   0      0  28317      0   36:12   00:04   36:08  32727
+  0 58.68M   0 159.9k   0      0  31955      0   32:05   00:05   32:00  35762
+  0 58.68M   0 223.9k   0      0  37430      0   27:23   00:06   27:17  41089
+  0 58.68M   0 271.9k   0      0  39029      0   26:16   00:07   26:09  54428
+  0 58.68M   0 351.9k   0      0  44260      0   23:10   00:08   23:02  69156
+  0 58.68M   0 415.9k   0      0  46576      0   22:01   00:09   21:52  61089
+  0 58.68M   0 463.9k   0      0  46784      0   21:55   00:10   21:45  61899
+  0 58.68M   0 527.9k   0      0  48452      0   21:09   00:11   20:58  61877
+  0 58.68M   0 591.9k   0      0  49821      0   20:35   00:12   20:23  65127
+  0 58.68M   0 591.9k   0      0  45345      0   22:36   00:13   22:23  47037
+  1 58.68M   1 624.0k   0      0  42482      0   24:08   00:15   23:53  36131
+  1 58.68M   1 671.9k   0      0  42880      0   23:54   00:16   23:38  36151
+  1 58.68M   1 735.9k   0      0  44082      0   23:15   00:17   22:58  35868
+  1 58.68M   1 831.9k   0      0  46895      0   21:52   00:18   21:34  40962
+  1 58.68M   1 863.9k   0      0  46155      0   22:13   00:19   21:54  48022
+  1 58.68M   1 911.9k   0      0  46141      0   22:13   00:20   21:53  56730
+  1 58.68M   1 975.9k   0      0  46854      0   21:53   00:21   21:32  58924
+  1 58.68M   1  0.98M   0      0  46181      0   22:12   00:22   21:50  53012
+  1 58.68M   1  1.01M   0      0  45382      0   22:35   00:23   22:12  40084
+  1 58.68M   1  1.02M   0      0  44050      0   23:16   00:24   22:52  36383
+  1 58.68M   1  1.08M   0      0  44269      0   23:09   00:25   22:44  37444
+  1 58.68M   1  1.16M   0      0  45610      0   22:29   00:26   22:03  40785
+  2 58.68M   2  1.19M   0      0  44773      0   22:54   00:28   22:26  39262
+  2 58.68M   2  1.24M   0      0  44905      0   22:50   00:29   22:21  42957
+  2 58.68M   2  1.29M   0      0  45001      0   22:47   00:30   22:17  49096
+  2 58.68M   2  1.33M   0      0  45106      0   22:44   00:31   22:13  49156
+  2 58.68M   2  1.35M   0      0  44212      0   23:11   00:32   22:39  37128
+  2 58.68M   2  1.38M   0      0  43807      0   23:24   00:33   22:51  38502
+  2 58.68M   2  1.41M   0      0  43472      0   23:35   00:34   23:01  35308
+  2 58.68M   2  1.43M   0      0  42559      0   24:05   00:35   23:30  28400
+  2 58.68M   2  1.49M   0      0  43070      0   23:48   00:36   23:12  30847
+  2 58.68M   2  1.53M   0      0  43209      0   23:44   00:37   23:07  37020
+  2 58.68M   2  1.60M   0      0  43712      0   23:27   00:38   22:49  43107
+  2 58.68M   2  1.66M   0      0  44227      0   23:11   00:39   22:32  49142
+  2 58.68M   2  1.70M   0      0  44296      0   23:09   00:40   22:29  56120
+  3 58.68M   3  1.77M   0      0  44807      0   22:53   00:41   22:12  56999
+  3 58.68M   3  1.86M   0      0  46043      0   22:16   00:42   21:34  66485
+  3 58.68M   3  1.99M   0      0  47965      0   21:22   00:43   20:39  79774
+  3 58.68M   3  2.06M   0      0  48721      0   21:02   00:44   20:18  83426
+  3 58.68M   3  2.13M   0      0  49084      0   20:53   00:45   20:08  87362
+  3 58.68M   3  2.13M   0      0  48004      0   21:21   00:46   20:35  74065
+  3 58.68M   3  2.20M   0      0  48711      0   21:03   00:47   20:16  71069
+  3 58.68M   3  2.30M   0      0  49714      0   20:37   00:48   19:49  64765
+  4 58.68M   4  2.39M   0      0  50694      0   20:13   00:49   19:24  68084
+  4 58.68M   4  2.44M   0      0  50639      0   20:15   00:50   19:25  64609
+  4 58.68M   4  2.49M   0      0  50308      0   20:23   00:51   19:32  70344
+  4 58.68M   4  2.53M   0      0  50139      0   20:27   00:53   19:34  62475
+  4 58.68M   4  2.56M   0      0  49809      0   20:35   00:54   19:41  50645
+  4 58.68M   4  2.61M   0      0  49795      0   20:35   00:55   19:40  41688
+  4 58.68M   4  2.69M   0      0  50365      0   20:21   00:56   19:25  47831
+  4 58.68M   4  2.72M   0      0  50027      0   20:29   00:57   19:32  47275
+  4 58.68M   4  2.76M   0      0  49673      0   20:38   00:58   19:40  44931
+  4 58.68M   4  2.77M   0      0  49002      0   20:55   00:59   19:56  40823
+  4 58.68M   4  2.82M   0      0  48999      0   20:55   01:00   19:55  40786
+  4 58.68M   4  2.85M   0      0  48701      0   21:03   01:01   20:02  31354
+  4 58.68M   4  2.88M   0      0  48423      0   21:10   01:02   20:08  31037
+  4 58.68M   4  2.91M   0      0  48151      0   21:17   01:03   20:14  31233
+  5 58.68M   5  2.94M   0      0  47895      0   21:24   01:04   20:20  35086
+  5 58.68M   5  2.99M   0      0  47912      0   21:24   01:05   20:19  35120
+  5 58.68M   5  3.05M   0      0  48096      0   21:19   01:06   20:13  40952
+  5 58.68M   5  3.08M   0      0  47821      0   21:26   01:07   20:19  40636
+  5 58.68M   5  3.12M   0      0  47592      0   21:32   01:08   20:24  40796
+  5 58.68M   5  3.13M   0      0  47099      0   21:46   01:09   20:37  37346
+  5 58.68M   5  3.15M   0      0  46634      0   21:59   01:10   20:49  30850
+  5 58.68M   5  3.18M   0      0  46414      0   22:05   01:11   20:54  25007
+  5 58.68M   5  3.21M   0      0  46187      0   22:12   01:12   21:00  25040
+  5 58.68M   5  3.26M   0      0  46186      0   22:12   01:14   20:58  27894
+  5 58.68M   5  3.32M   0      0  46442      0   22:04   01:15   20:49  37648
+  5 58.68M   5  3.40M   0      0  46908      0   21:51   01:16   20:35  50653
+  5 58.68M   5  3.44M   0      0  46934      0   21:51   01:17   20:34  54213
+  6 58.68M   6  3.55M   0      0  47800      0   21:27   01:18   20:09  70978
+  6 58.68M   6  3.65M   0      0  48525      0   21:08   01:19   19:49  83009
+  6 58.68M   6  3.75M   0      0  49146      0   20:52   01:20   19:32  89555
+  6 58.68M   6  3.79M   0      0  49133      0   20:52   01:21   19:31  82693
+  6 58.68M   6  3.83M   0      0  48903      0   20:58   01:22   19:36  78726
+  6 58.68M   6  3.89M   0      0  49076      0   20:53   01:23   19:30  68487
+  6 58.68M   6  3.95M   0      0  49229      0   20:49   01:24   19:25  59940
+  6 58.68M   6  3.98M   0      0  49033      0   20:54   01:25   19:29  47297
+  6 58.68M   6  4.04M   0      0  49212      0   20:50   01:26   19:24  50451
+  7 58.68M   7  4.12M   0      0  49551      0   20:41   01:27   19:14  59786
+  7 58.68M   7  4.22M   0      0  50077      0   20:28   01:28   19:00  66071
+  7 58.68M   7  4.34M   0      0  50977      0   20:07   01:29   18:38  79618
+  7 58.68M   7  4.45M   0      0  51671      0   19:50   01:30   18:20  95289
+  7 58.68M   7  4.56M   0      0  52353      0   19:35   01:31   18:04 102.5k
+  7 58.68M   7  4.69M   0      0  53185      0   19:16   01:32   17:44 112.4k
+  8 58.68M   8  4.73M   0      0  53141      0   19:17   01:33   17:44 104.0k
+  8 58.68M   8  4.76M   0      0  52923      0   19:22   01:34   17:48  87215
+  8 58.68M   8  4.84M   0      0  53247      0   19:15   01:35   17:40  81406
+  8 58.68M   8  4.87M   0      0  53032      0   19:20   01:36   17:44  65330
+  8 58.68M   8  4.95M   0      0  53112      0   19:18   01:37   17:41  51871
+  8 58.68M   8  5.02M   0      0  53231      0   19:15   01:38   17:37  54777
+  8 58.68M   8  5.08M   0      0  53347      0   19:13   01:39   17:34  60723
+  8 58.68M   8  5.14M   0      0  53463      0   19:10   01:40   17:30  57253
+  8 58.68M   8  5.17M   0      0  53249      0   19:15   01:41   17:34  57090
+  8 58.68M   8  5.23M   0      0  53367      0   19:12   01:42   17:30  58291
+  9 58.68M   9  5.31M   0      0  53639      0   19:07   01:43   17:24  61628
+  9 58.68M   9  5.44M   0      0  54372      0   18:51   01:44   17:07  74658
+  9 58.68M   9  5.52M   0      0  54631      0   18:46   01:45   17:01  78009
+  9 58.68M   9  5.61M   0      0  55030      0   18:38   01:46   16:52  91074
+  9 58.68M   9  5.73M   0      0  55713      0   18:24   01:48   16:36 100.8k
+ 10 58.68M  10  5.89M   0      0  56693      0   18:05   01:49   16:16 116.2k
+ 10 58.68M  10  5.98M   0      0  57067      0   17:58   01:50   16:08 109.9k
+ 10 58.68M  10  6.06M   0      0  57248      0   17:54   01:51   16:03 108.2k
+ 10 58.68M  10  6.20M   0      0  58049      0   17:40   01:52   15:48 117.8k
+ 10 58.68M  10  6.36M   0      0  58981      0   17:23   01:53   15:30 124.8k
+ 11 58.68M  11  6.54M   0      0  60114      0   17:03   01:54   15:09 129.9k
+ 11 58.68M  11  6.70M   0      0  61012      0   16:48   01:55   14:53 142.5k
+ 11 58.68M  11  6.85M   0      0  61890      0   16:34   01:56   14:38 160.3k
+ 11 58.68M  11  7.02M   0      0  62899      0   16:18   01:57   14:21 166.9k
+ 12 58.68M  12  7.16M   0      0  63568      0   16:07   01:58   14:09 162.7k
+ 12 58.68M  12  7.30M   0      0  64272      0   15:57   01:59   13:58 155.0k
+ 12 58.68M  12  7.44M   0      0  64961      0   15:47   02:00   13:47 151.8k
+ 12 58.68M  12  7.60M   0      0  65777      0   15:35   02:01   13:34 152.2k
+ 13 58.68M  13  7.75M   0      0  66578      0   15:24   02:02   13:22 148.9k
+ 13 58.68M  13  7.93M   0      0  67533      0   15:11   02:03   13:08 157.0k
+ 13 58.68M  13  8.08M   0      0  68256      0   15:01   02:04   12:57 158.9k
+ 14 58.68M  14  8.24M   0      0  69041      0   14:51   02:05   12:46 162.5k
+ 14 58.68M  14  8.38M   0      0  69658      0   14:43   02:06   12:37 159.1k
+ 14 58.68M  14  8.41M   0      0  69365      0   14:47   02:07   12:40 133.6k
+ 14 58.68M  14  8.52M   0      0  69679      0   14:43   02:08   12:35 118.6k
+ 14 58.68M  14  8.57M   0      0  69495      0   14:45   02:09   12:36  99406
+ 14 58.68M  14  8.60M   0      0  69107      0   14:50   02:10   12:40  70639
+ 14 58.68M  14  8.67M   0      0  69159      0   14:49   02:11   12:38  57412
+ 14 58.68M  14  8.72M   0      0  68857      0   14:53   02:12   12:41  57409
+ 15 58.68M  15  8.85M   0      0  69318      0   14:47   02:13   12:34  61007
+ 15 58.68M  15  8.97M   0      0  69770      0   14:41   02:14   12:27  76188
+ 15 58.68M  15  9.05M   0      0  69835      0   14:41   02:15   12:26  87474
+ 15 58.68M  15  9.07M   0      0  69514      0   14:45   02:16   12:29  78206
+ 15 58.68M  15  9.12M   0      0  69364      0   14:47   02:17   12:30  82609
+ 15 58.68M  15  9.20M   0      0  69431      0   14:46   02:19   12:27  72389
+ 15 58.68M  15  9.23M   0      0  69115      0   14:50   02:20   12:30  52182
+ 15 58.68M  15  9.28M   0      0  68961      0   14:52   02:21   12:31  46103
+ 15 58.68M  15  9.34M   0      0  68936      0   14:52   02:22   12:30  53682
+ 16 58.68M  16  9.40M   0      0  68832      0   14:53   02:23   12:30  55126
+ 16 58.68M  16  9.44M   0      0  68599      0   14:56   02:24   12:32  47307
+ 16 58.68M  16  9.49M   0      0  68433      0   14:59   02:25   12:34  50696
+ 16 58.68M  16  9.55M   0      0  68395      0   14:59   02:26   12:33  53598
+ 16 58.68M  16  9.66M   0      0  68685      0   14:55   02:27   12:28  62137
+ 16 58.68M  16  9.69M   0      0  68434      0   14:59   02:28   12:31  57686
+ 16 58.68M  16  9.74M   0      0  68299      0   15:00   02:29   12:31  59968
+ 16 58.68M  16  9.82M   0      0  68329      0   15:00   02:30   12:30  65444
+ 16 58.68M  16  9.88M   0      0  68285      0   15:01   02:31   12:30  65249
+ 16 58.68M  16  9.93M   0      0  68160      0   15:02   02:32   12:30  53335
+ 17 58.68M  17  9.99M   0      0  68141      0   15:03   02:33   12:30  59783
+ 17 58.68M  17 10.10M   0      0  68441      0   14:59   02:34   12:25  72534
+ 17 58.68M  17 10.22M   0      0  68800      0   14:54   02:35   12:19  82781
+ 17 58.68M  17 10.31M   0      0  68975      0   14:52   02:36   12:16  89672
+ 17 58.68M  17 10.41M   0      0  69159      0   14:49   02:37   12:12  99339
+ 17 58.68M  17 10.51M   0      0  69410      0   14:46   02:38   12:08 105.3k
+ 17 58.68M  17 10.54M   0      0  69114      0   14:50   02:40   12:10  89054
+ 18 58.68M  18 10.64M   0      0  69295      0   14:47   02:41   12:06  84132
+ 18 58.68M  18 10.68M   0      0  69163      0   14:49   02:42   12:07  74854
+ 18 58.68M  18 10.79M   0      0  69430      0   14:46   02:43   12:03  77643
+ 18 58.68M  18 10.87M   0      0  69499      0   14:45   02:44   12:01  72199
+ 18 58.68M  18 10.98M   0      0  69735      0   14:42   02:45   11:57  89039
+ 18 58.68M  18 11.09M   0      0  69997      0   14:39   02:46   11:53  91873
+ 18 58.68M  18 11.12M   0      0  69473      0   14:45   02:47   11:58  78000
+ 18 58.68M  18 11.14M   0      0  69105      0   14:50   02:49   12:01  60240
+ 19 58.68M  19 11.15M   0      0  68752      0   14:54   02:50   12:04  48574
+ 19 58.68M  19 11.22M   0      0  68731      0   14:55   02:51   12:04  41037
+ 19 58.68M  19 11.27M   0      0  68675      0   14:55   02:52   12:03  31970
+ 19 58.68M  19 11.34M   0      0  68653      0   14:56   02:53   12:03  42541
+ 19 58.68M  19 11.40M   0      0  68626      0   14:56   02:54   12:02  52942
+ 19 58.68M  19 11.46M   0      0  68608      0   14:56   02:55   12:01  63763
+ 19 58.68M  19 11.54M   0      0  68681      0   14:55   02:56   11:59  66988
+ 19 58.68M  19 11.63M   0      0  68817      0   14:54   02:57   11:57  73671
+ 19 58.68M  19 11.67M   0      0  68676      0   14:55   02:58   11:57  69456
+ 19 58.68M  19 11.71M   0      0  68475      0   14:58   02:59   11:59  63304
+ 20 58.68M  20 11.75M   0      0  68362      0   15:00   03:00   12:00  59924
+ 20 58.68M  20 11.78M   0      0  68165      0   15:02   03:01   12:01  50333
+ 20 58.68M  20 11.82M   0      0  67943      0   15:05   03:02   12:03  38007
+ 20 58.68M  20 11.85M   0      0  67664      0   15:09   03:03   12:06  33817
+ 20 58.68M  20 11.88M   0      0  67470      0   15:11   03:04   12:07  33736
+ 20 58.68M  20 11.92M   0      0  67361      0   15:13   03:05   12:08  33649
+ 20 58.68M  20 11.99M   0      0  67350      0   15:13   03:06   12:07  39769
+ 20 58.68M  20 12.03M   0      0  67216      0   15:15   03:07   12:08  42593
+ 20 58.68M  20 12.10M   0      0  67173      0   15:16   03:08   12:08  49956
+ 20 58.68M  20 12.11M   0      0  66880      0   15:20   03:09   12:11  46323
+ 20 58.68M  20 12.14M   0      0  66655      0   15:23   03:11   12:12  42075
+ 20 58.68M  20 12.14M   0      0  66305      0   15:28   03:12   12:16  29740
+ 20 58.68M  20 12.19M   0      0  66201      0   15:29   03:13   12:16  30081
+ 20 58.68M  20 12.23M   0      0  66109      0   15:30   03:14   12:16  27406
+ 21 58.68M  21 12.33M   0      0  66271      0   15:28   03:15   12:13  43735
+ 21 58.68M  21 12.40M   0      0  66309      0   15:27   03:16   12:11  53578
+ 21 58.68M  21 12.45M   0      0  66127      0   15:30   03:17   12:13  59899
+ 21 58.68M  21 12.51M   0      0  66123      0   15:30   03:18   12:12  63339
+ 21 58.68M  21 12.58M   0      0  66119      0   15:30   03:19   12:11  66485
+ 21 58.68M  21 12.64M   0      0  66111      0   15:30   03:20   12:10  60363
+ 21 58.68M  21 12.70M   0      0  66098      0   15:30   03:21   12:09  58346
+ 21 58.68M  21 12.76M   0      0  66073      0   15:31   03:22   12:09  63981
+ 21 58.68M  21 12.81M   0      0  65961      0   15:32   03:23   12:09  59674
+ 21 58.68M  21 12.85M   0      0  65860      0   15:34   03:24   12:10  55902
+ 22 58.68M  22 12.93M   0      0  65937      0   15:33   03:25   12:08  59189
+ 22 58.68M  22 12.98M   0      0  65856      0   15:34   03:26   12:08  56351
+ 22 58.68M  22 13.01M   0      0  65654      0   15:37   03:27   12:10  49341
+ 22 58.68M  22 13.04M   0      0  65479      0   15:39   03:28   12:11  46787
+ 22 58.68M  22 13.04M   0      0  65088      0   15:45   03:30   12:15  36074
+ 22 58.68M  22 13.10M   0      0  65085      0   15:45   03:31   12:14  32990
+ 22 58.68M  22 13.15M   0      0  65007      0   15:46   03:32   12:14  32938
+ 22 58.68M  22 13.21M   0      0  65001      0   15:46   03:33   12:13  39695
+ 22 58.68M  22 13.24M   0      0  64814      0   15:49   03:34   12:15  39246
+ 22 58.68M  22 13.27M   0      0  64660      0   15:51   03:35   12:16  47347
+ 22 58.68M  22 13.31M   0      0  64492      0   15:54   03:36   12:18  40603
+ 22 58.68M  22 13.32M   0      0  64174      0   15:58   03:37   12:21  31935
+ 22 58.68M  22 13.38M   0      0  64167      0   15:58   03:38   12:20  31851
+ 22 58.68M  22 13.39M   0      0  63908      0   16:02   03:39   12:23  28738
+ 22 58.68M  22 13.44M   0      0  63840      0   16:03   03:40   12:23  31777
+ 23 58.68M  23 13.52M   0      0  63920      0   16:02   03:41   12:21  41193
+ 23 58.68M  23 13.55M   0      0  63773      0   16:04   03:42   12:22  47082
+ 23 58.68M  23 13.63M   0      0  63846      0   16:03   03:43   12:20  50355
+ 23 58.68M  23 13.69M   0      0  63624      0   16:07   03:45   12:22  52983
+ 23 58.68M  23 13.69M   0      0  63325      0   16:11   03:46   12:25  44161
+ 23 58.68M  23 13.71M   0      0  63113      0   16:14   03:47   12:27  33028
+ 23 58.68M  23 13.74M   0      0  62979      0   16:17   03:48   12:29  33142
+ 23 58.68M  23 13.82M   0      0  63061      0   16:15   03:49   12:26  33281
+ 23 58.68M  23 13.88M   0      0  63070      0   16:15   03:50   12:25  38569
+ 23 58.68M  23 13.99M   0      0  63292      0   16:12   03:51   12:21  61833
+ 23 58.68M  23 14.06M   0      0  63350      0   16:11   03:52   12:19  74117
+ 24 58.68M  24 14.14M   0      0  63427      0   16:10   03:53   12:17  83851
+ 24 58.68M  24 14.22M   0      0  63487      0   16:09   03:54   12:15  82766
+ 24 58.68M  24 14.25M   0      0  63253      0   16:12   03:56   12:16  70977
+ 24 58.68M  24 14.33M   0      0  63327      0   16:11   03:57   12:14  64817
+ 24 58.68M  24 14.39M   0      0  63334      0   16:11   03:58   12:13  62670
+ 24 58.68M  24 14.45M   0      0  63268      0   16:12   03:59   12:13  56792
+ 24 58.68M  24 14.53M   0      0  63338      0   16:11   04:00   12:11  57239
+ 24 58.68M  24 14.56M   0      0  63206      0   16:13   04:01   12:12  61127
+ 24 58.68M  24 14.61M   0      0  63140      0   16:14   04:02   12:12  54876
+ 24 58.68M  24 14.64M   0      0  62996      0   16:16   04:03   12:13  48184
+ 25 58.68M  25 14.67M   0      0  62867      0   16:18   04:04   12:14  44306
+ 25 58.68M  25 14.72M   0      0  62780      0   16:20   04:05   12:15  37279
+ 25 58.68M  25 14.75M   0      0  62643      0   16:22   04:06   12:16  37022
+ 25 58.68M  25 14.78M   0      0  62520      0   16:24   04:07   12:17  34058
+ 25 58.68M  25 14.83M   0      0  62464      0   16:25   04:08   12:17  37643
+ 25 58.68M  25 14.84M   0      0  62231      0   16:28   04:10   12:18  33386
+ 25 58.68M  25 14.87M   0      0  62085      0   16:31   04:11   12:20  29912
+ 25 58.68M  25 14.91M   0      0  61968      0   16:32   04:12   12:20  31291
+ 25 58.68M  25 14.96M   0      0  61917      0   16:33   04:13   12:20  34361
+ 25 58.68M  25 14.97M   0      0  61728      0   16:36   04:14   12:22  28144
+ 25 58.68M  25 15.04M   0      0  61743      0   16:36   04:15   12:21  38543
+ 25 58.68M  25 15.07M   0      0  61600      0   16:38   04:16   12:22  38840
+ 25 58.68M  25 15.10M   0      0  61487      0   16:40   04:17   12:23  38004
+ 25 58.68M  25 15.15M   0      0  61427      0   16:41   04:18   12:23  37660
+ 25 58.68M  25 15.18M   0      0  61312      0   16:43   04:19   12:24  40944
+ 25 58.68M  25 15.24M   0      0  61323      0   16:43   04:20   12:23  40774
+ 26 58.68M  26 15.29M   0      0  61269      0   16:44   04:21   12:23  44691
+ 26 58.68M  26 15.33M   0      0  61216      0   16:45   04:22   12:23  47694
+ 26 58.68M  26 15.33M   0      0  60960      0   16:49   04:23   12:26  37736
+ 26 58.68M  26 15.35M   0      0  60687      0   16:53   04:25   12:28  31942
+ 26 58.68M  26 15.35M   0      0  60459      0   16:57   04:26   12:31  20404
+ 26 58.68M  26 15.35M   0      0  60219      0   17:01   04:27   12:34  11600
+ 26 58.68M  26 15.38M   0      0  60085      0   17:04   04:28   12:36   8518
+ 26 58.68M  26 15.44M   0      0  60105      0   17:03   04:29   12:34  20255
+ 26 58.68M  26 15.49M   0      0  60040      0   17:04   04:30   12:34  27743
+ 26 58.68M  26 15.50M   0      0  59806      0   17:08   04:31   12:37  29007
+ 26 58.68M  26 15.54M   0      0  59705      0   17:10   04:32   12:38  35133
+ 26 58.68M  26 15.54M   0      0  59452      0   17:14   04:34   12:40  29182
+ 26 58.68M  26 15.58M   0      0  59413      0   17:15   04:35   12:40  26237
+ 26 58.68M  26 15.62M   0      0  59356      0   17:16   04:36   12:40  25810
+ 26 58.68M  26 15.69M   0      0  59378      0   17:16   04:37   12:39  36947
+ 26 58.68M  26 15.72M   0      0  59280      0   17:17   04:38   12:39  36936
+ 26 58.68M  26 15.77M   0      0  59244      0   17:18   04:39   12:39  47900
+ 26 58.68M  26 15.83M   0      0  59264      0   17:18   04:40   12:38  51109
+ 27 58.68M  27 15.86M   0      0  59153      0   17:20   04:41   12:39  48143
+ 27 58.68M  27 15.87M   0      0  58922      0   17:24   04:42   12:42  35856
+ 27 58.68M  27 15.87M   0      0  58714      0   17:27   04:43   12:44  29923
+ 27 58.68M  27 15.92M   0      0  58678      0   17:28   04:44   12:44  29868
+ 27 58.68M  27 15.97M   0      0  58632      0   17:29   04:45   12:44  26657
+ 27 58.68M  27 15.98M   0      0  58471      0   17:32   04:46   12:46  23741
+ 27 58.68M  27 15.98M   0      0  58268      0   17:36   04:47   12:49  22307
+ 27 58.68M  27 15.98M   0      0  58066      0   17:39   04:48   12:51  22307
+ 27 58.68M  27 16.02M   0      0  57970      0   17:41   04:49   12:52  19018
+ 27 58.68M  27 16.06M   0      0  57938      0   17:42   04:50   12:52  19204
+ 27 58.68M  27 16.11M   0      0  57900      0   17:42   04:51   12:51  25755
+ 27 58.68M  27 16.19M   0      0  57978      0   17:41   04:52   12:49  41687
+ 27 58.68M  27 16.22M   0      0  57886      0   17:42   04:53   12:49  47816
+ 27 58.68M  27 16.28M   0      0  57908      0   17:42   04:54   12:48  54371
+ 27 58.68M  27 16.30M   0      0  57739      0   17:45   04:56   12:49  46753
+ 27 58.68M  27 16.33M   0      0  57634      0   17:47   04:57   12:50  43050
+ 27 58.68M  27 16.39M   0      0  57652      0   17:47   04:58   12:49  39811
+ 28 58.68M  28 16.47M   0      0  57729      0   17:45   04:59   12:46  49098
+ 28 58.68M  28 16.53M   0      0  57744      0   17:45   05:00   12:45  48791
+ 28 58.68M  28 16.61M   0      0  57816      0   17:44   05:01   12:43  62122
+ 28 58.68M  28 16.68M   0      0  57861      0   17:43   05:02   12:41  70891
+ 28 58.68M  28 16.71M   0      0  57778      0   17:44   05:03   12:41  65083
+ 28 58.68M  28 16.79M   0      0  57856      0   17:43   05:04   12:39  65283
+ 28 58.68M  28 16.88M   0      0  57988      0   17:41   05:05   12:36  72414
+ 28 58.68M  28 16.99M   0      0  58169      0   17:37   05:06   12:31  79288
+ 29 58.68M  29 17.08M   0      0  58297      0   17:35   05:07   12:28  84466
+ 29 58.68M  29 17.18M   0      0  58426      0   17:33   05:08   12:25  97339
+ 29 58.68M  29 17.27M   0      0  58551      0   17:30   05:09   12:21 98.00k
+ 29 58.68M  29 17.38M   0      0  58732      0   17:27   05:10   12:17 101.2k
+ 29 58.68M  29 17.47M   0      0  58856      0   17:25   05:11   12:14 98.17k
+ 29 58.68M  29 17.51M   0      0  58768      0   17:27   05:12   12:15  87302
+ 29 58.68M  29 17.57M   0      0  58789      0   17:26   05:13   12:13  80919
+ 30 58.68M  30 17.62M   0      0  58751      0   17:27   05:14   12:13  70857
+ 30 58.68M  30 17.65M   0      0  58650      0   17:29   05:15   12:14  53732
+ 30 58.68M  30 17.70M   0      0  58634      0   17:29   05:16   12:13  45319
+ 30 58.68M  30 17.76M   0      0  58648      0   17:29   05:17   12:12  51451
+ 30 58.68M  30 17.79M   0      0  58563      0   17:30   05:18   12:12  45044
+ 30 58.68M  30 17.89M   0      0  58687      0   17:28   05:19   12:09  54866
+ 30 58.68M  30 17.93M   0      0  58643      0   17:29   05:20   12:09  58181
+ 30 58.68M  30 17.96M   0      0  58544      0   17:31   05:21   12:10  53085
+ 30 58.68M  30 17.98M   0      0  58409      0   17:33   05:22   12:11  43910
+ 30 58.68M  30 18.04M   0      0  58427      0   17:33   05:23   12:10  50091
+ 30 58.68M  30 18.07M   0      0  58340      0   17:34   05:24   12:10  37267
+ 30 58.68M  30 18.12M   0      0  58308      0   17:35   05:25   12:10  37716
+ 30 58.68M  30 18.18M   0      0  58327      0   17:34   05:26   12:08  44744
+ 31 58.68M  31 18.23M   0      0  58287      0   17:35   05:28   12:07  50640
+ 31 58.68M  31 18.26M   0      0  58202      0   17:37   05:29   12:08  44188
+ 31 58.68M  31 18.31M   0      0  58170      0   17:37   05:30   12:07  47488
+ 31 58.68M  31 18.37M   0      0  58188      0   17:37   05:31   12:06  50658
+ 31 58.68M  31 18.39M   0      0  58056      0   17:39   05:32   12:07  41003
+ 31 58.68M  31 18.45M   0      0  58071      0   17:39   05:33   12:06  44382
+ 31 58.68M  31 18.48M   0      0  57995      0   17:40   05:34   12:06  44712
+ 31 58.68M  31 18.51M   0      0  57891      0   17:42   05:35   12:07  40413
+ 31 58.68M  31 18.59M   0      0  57959      0   17:41   05:36   12:05  43538
+ 31 58.68M  31 18.69M   0      0  58107      0   17:38   05:37   12:01  61310
+ 31 58.68M  31 18.74M   0      0  58080      0   17:39   05:38   12:01  58663
+ 32 58.68M  32 18.82M   0      0  58142      0   17:38   05:39   11:59  67465
+ 32 58.68M  32 18.88M   0      0  58145      0   17:38   05:40   11:58  74793
+ 32 58.68M  32 18.92M   0      0  58117      0   17:38   05:41   11:57  68562
+ 32 58.68M  32 18.95M   0      0  58019      0   17:40   05:42   11:58  52351
+ 32 58.68M  32 19.02M   0      0  58019      0   17:40   05:43   11:57  54137
+ 32 58.68M  32 19.05M   0      0  57861      0   17:43   05:45   11:58  41420
+ 32 58.68M  32 19.08M   0      0  57784      0   17:44   05:46   11:58  36654
+ 32 58.68M  32 19.13M   0      0  57742      0   17:45   05:47   11:58  36038
+ 32 58.68M  32 19.16M   0      0  57648      0   17:47   05:48   11:59  36072
+ 32 58.68M  32 19.19M   0      0  57556      0   17:49   05:49   12:00  30567
+ 32 58.68M  32 19.22M   0      0  57484      0   17:50   05:50   12:00  33409
+ 32 58.68M  32 19.22M   0      0  57301      0   17:53   05:51   12:02  26843
+ 32 58.68M  32 19.25M   0      0  57229      0   17:55   05:52   12:03  24249
+ 32 58.68M  32 19.28M   0      0  57159      0   17:56   05:53   12:03  24858
+ 32 58.68M  32 19.33M   0      0  57135      0   17:56   05:54   12:02  28578
+ 33 58.68M  33 19.38M   0      0  57107      0   17:57   05:55   12:02  31575
+ 33 58.68M  33 19.41M   0      0  57035      0   17:58   05:56   12:02  38662
+ 33 58.68M  33 19.50M   0      0  57148      0   17:56   05:57   11:59  51545
+ 33 58.68M  33 19.55M   0      0  57120      0   17:57   05:58   11:59  54398
+ 33 58.68M  33 19.58M   0      0  57051      0   17:58   05:59   11:59  51244
+ 33 58.68M  33 19.63M   0      0  57028      0   17:58   06:00   11:58  51538
+ 33 58.68M  33 19.72M   0      0  57142      0   17:56   06:01   11:55  64606
+ 33 58.68M  33 19.75M   0      0  57065      0   17:58   06:03   11:55  51273
+ 33 58.68M  33 19.77M   0      0  56950      0   18:00   06:04   11:56  45026
+ 33 58.68M  33 19.78M   0      0  56815      0   18:03   06:05   11:58  40620
+ 33 58.68M  33 19.83M   0      0  56784      0   18:03   06:06   11:57  40149
+curl: (56) OpenSSL SSL_read: OpenSSL/3.5.9: error:0A000126:SSL routines::unexpected eof while reading, errno 0
++ curl -fSL https://archive.apache.org/dist/tomee/tomee-10.3.0/apache-tomee-10.3.0-webprofile.tar.gz -o apache-tomee-10.3.0-webprofile.tar.gz
+  % Total    % Received % Xferd  Average Speed  Time    Time    Time   Current
+                                 Dload  Upload  Total   Spent   Left   Speed
+
+  0      0   0      0   0      0      0      0           00:01              0
+  0 58.68M   0 109.3k   0      0  53990      0   18:59   00:02   18:57 104.0k
+  3 58.68M   3  2.19M   0      0 730.4k      0   01:22   00:03   01:19  1.06M
+  8 58.68M   8  4.82M   0      0  1.17M      0   00:49   00:04   00:45  1.57M
+ 12 58.68M  12  7.14M   0      0  1.40M      0   00:41   00:05   00:36  1.75M
+ 15 58.68M  15  9.24M   0      0  1.51M      0   00:38   00:06   00:32  1.82M
+ 19 58.68M  19 11.28M   0      0  1.58M      0   00:37   00:07   00:30  2.20M
+ 22 58.68M  22 13.09M   0      0  1.60M      0   00:36   00:08   00:28  2.15M
+ 25 58.68M  25 14.89M   0      0  1.62M      0   00:36   00:09   00:27  1.98M
+ 27 58.68M  27 15.89M   0      0  1.56M      0   00:37   00:10   00:27  1.72M
+ 28 58.68M  28 16.97M   0      0  1.51M      0   00:38   00:11   00:27  1.52M
+ 30 58.68M  30 18.12M   0      0  1.48M      0   00:39   00:12   00:27  1.34M
+ 32 58.68M  32 19.25M   0      0  1.45M      0   00:40   00:13   00:27  1.21M
+ 34 58.68M  34 20.53M   0      0  1.44M      0   00:40   00:14   00:26  1.11M
+ 36 58.68M  36 21.56M   0      0  1.41M      0   00:41   00:15   00:26  1.12M
+ 38 58.68M  38 22.39M   0      0  1.37M      0   00:42   00:16   00:26  1.06M
+ 39 58.68M  39 23.02M   0      0  1.33M      0   00:44   00:17   00:27 990.2k
+ 40 58.68M  40 23.71M   0      0  1.29M      0   00:45   00:18   00:27 900.6k
+ 43 58.68M  43 25.60M   0      0  1.32M      0   00:44   00:19   00:25  1.00M
+ 47 58.68M  47 27.84M   0      0  1.37M      0   00:42   00:20   00:22  1.24M
+ 51 58.68M  51 29.97M   0      0  1.40M      0   00:41   00:21   00:20  1.50M
+ 55 58.68M  55 32.40M   0      0  1.45M      0   00:40   00:22   00:18  1.85M
+ 59 58.68M  59 35.07M   0      0  1.50M      0   00:38   00:23   00:15  2.25M
+ 63 58.68M  63 37.52M   0      0  1.54M      0   00:38   00:24   00:14  2.37M
+ 67 58.68M  67 39.56M   0      0  1.56M      0   00:37   00:25   00:12  2.33M
+ 70 58.68M  70 41.22M   0      0  1.56M      0   00:37   00:26   00:11  2.23M
+ 72 58.68M  72 42.78M   0      0  1.56M      0   00:37   00:27   00:10  2.06M
+ 75 58.68M  75 44.52M   0      0  1.57M      0   00:37   00:28   00:09  1.87M
+ 78 58.68M  78 46.04M   0      0  1.56M      0   00:37   00:29   00:08  1.68M
+ 81 58.68M  81 47.67M   0      0  1.56M      0   00:37   00:30   00:07  1.60M
+ 85 58.68M  85 50.07M   0      0  1.59M      0   00:36   00:31   00:05  1.75M
+ 89 58.68M  89 52.52M   0      0  1.62M      0   00:36   00:32   00:04  1.93M
+ 94 58.68M  94 55.23M   0      0  1.65M      0   00:35   00:33   00:02  2.12M
+ 98 58.68M  98 57.99M   0      0  1.68M      0   00:34   00:34          2.38M
+100 58.68M 100 58.68M   0      0  1.69M      0   00:34   00:34          2.38M
+100 58.68M 100 58.68M   0      0  1.69M      0   00:34   00:34          2.38M
+100 58.68M 100 58.68M   0      0  1.69M      0   00:34   00:34          2.38M
 + '[' -s apache-tomee-10.3.0-webprofile.tar.gz ]
 + success=1
 + break
 + '[' -n 1 ]
-+ ddist apache-tomee-10.3.0-webprofile.tar.gz.asc tomee/tomee-10.3.0/apache-tomee-10.3.0-webprofile.tar.gz.asc
-+ local 'f=apache-tomee-10.3.0-webprofile.tar.gz.asc'
-+ shift
-+ local 'distFile=tomee/tomee-10.3.0/apache-tomee-10.3.0-webprofile.tar.gz.asc'
-+ shift
-+ local 'success='
-+ local 'distUrl='
-+ curl -fSL --retry 3 --connect-timeout 30 https://downloads.apache.org/tomee/tomee-10.3.0/apache-tomee-10.3.0-webprofile.tar.gz.asc -o apache-tomee-10.3.0-webprofile.tar.gz.asc
-  % Total    % Received % Xferd  Average Speed  Time    Time    Time   Current
-                                 Dload  Upload  Total   Spent   Left   Speed
-
-  0      0   0      0   0      0      0      0                              0
-100    870 100    870   0      0   1010      0                              0
-100    870 100    870   0      0   1010      0                              0
-100    870 100    870   0      0   1010      0                              0
-+ '[' -s apache-tomee-10.3.0-webprofile.tar.gz.asc ]
-+ success=1
-+ break
-+ '[' -n 1 ]
-+ ddist tomee.KEYS tomee/KEYS
-+ local 'f=tomee.KEYS'
-+ shift
-+ local 'distFile=tomee/KEYS'
-+ shift
-+ local 'success='
-+ local 'distUrl='
-+ curl -fSL --retry 3 --connect-timeout 30 https://downloads.apache.org/tomee/KEYS -o tomee.KEYS
-  % Total    % Received % Xferd  Average Speed  Time    Time    Time   Current
-                                 Dload  Upload  Total   Spent   Left   Speed
-
-  0      0   0      0   0      0      0      0                              0
-100  82026 100  82026   0      0  51825      0   00:01   00:01              0
-100  82026 100  82026   0      0  51823      0   00:01   00:01              0
-100  82026 100  82026   0      0  51823      0   00:01   00:01              0
-+ '[' -s tomee.KEYS ]
-+ success=1
-+ break
-+ '[' -n 1 ]
-+ echo '6c0ca666939535e3d4fb091e9155e85fd2dfe6f4f84035f84cb156574ce48c7a920d3f58ba3c1485a9a81b4735b96a1491f36776f17ab2a0084e3b8eb979b167  apache-tomee-10.3.0-webprofile.tar.gz'
-+ sha512sum -c -
-apache-tomee-10.3.0-webprofile.tar.gz: OK
-+ mktemp -d
-+ export 'GNUPGHOME=/tmp/tmp.fPYoatpnmi'
-+ gpg --batch --import tomee.KEYS
-gpg: keybox '/tmp/tmp.fPYoatpnmi/pubring.kbx' created
-gpg: key CBAEBE39A46C4CA1: 45 signatures not checked due to missing keys
-gpg: /tmp/tmp.fPYoatpnmi/trustdb.gpg: trustdb created
-gpg: key CBAEBE39A46C4CA1: public key "Matt Hogstrom <hogstrom@apache.org>" imported
-gpg: key 318242FE9A0B1183: public key "Jeremy Whitlock <jwhitlock@apache.org>" imported
-gpg: key E126833F9CF64915: 4 signatures not checked due to missing keys
-gpg: key E126833F9CF64915: public key "Richard Kenneth McGuire (CODE SIGNING KEY) <rickmcguire@apache.org>" imported
-gpg: key C8BB472CD297D428: public key "Jonathan Gallimore <jgallimore@apache.org>" imported
-gpg: Note: third-party key signatures using the SHA1 algorithm are rejected
-gpg: (use option "--allow-weak-key-signatures" to override)
-gpg: key 8EBE7DBE8D050EEF: 3 signatures not checked due to missing keys
-gpg: key 8EBE7DBE8D050EEF: 1 bad signature
-gpg: key 8EBE7DBE8D050EEF: public key "Jarek Gawor (CODE SIGNING KEY) <gawor@apache.org>" imported
-gpg: key 5483E55897ABD9B9: 2 signatures not checked due to missing keys
-gpg: key 5483E55897ABD9B9: public key "Jarek Gawor <gawor@apache.org>" imported
-gpg: key ED340E0E6D545F97: public key "Andy Gumbrecht (TomEE Code Signing) <agumbrecht@tomitribe.com>" imported
-gpg: key A8DE0A4DB863A7C1: public key "Romain Manni-Bucau <rmannibucau@tomitribe.com>" imported
-gpg: key E91287822FDB81B1: 1 signature not checked due to a missing key
-gpg: key E91287822FDB81B1: public key "Mark Struberg (Apache) <struberg@apache.org>" imported
-gpg: key C212662E12F3E1DD: public key "David Blevins <dblevins@apache.org>" imported
-gpg: key 997C8F1A5BE6E4C1: public key "Xu Hai Hong (Ivan Xu @ Geronimo) <xhhsld@gmail.com>" imported
-gpg: key 622B8F2D043F71D8: public key "Jean-Louis Monteiro (CODE SIGNING KEY) <jlmonteiro@apache.org>" imported
-gpg: key 6A62FC8EF17D8FEF: public key "Romain Manni-Bucau <rmannibucau@apache.org>" imported
-gpg: key 67C1227A2678363C: public key "Romain Manni-Bucau <rmannibucau@apache.org>" imported
-gpg: key 3D4683C24EDC64D1: public key "Roberto Cortez (Apache Signing Key) <radcortez@yahoo.com>" imported
-gpg: key CF6FC99C2CC77782: public key "David Blevins <dblevins@tomitribe.com>" imported
-gpg: key C0D95C5181D22F04: public key "David Blevins <david.blevins@gmail.com>" imported
-gpg: key 9C04914D63645D20: public key "David Blevins <dblevins@tomitribe.com>" imported
-gpg: key 358807C52B4B0E23: public key "Jean-Louis Monteiro (CODE SIGNING KEY) <jlmonteiro@apache.org>" imported
-gpg: key DAB472F0E5B8A431: public key "Richard Zowalla (Code Signing Key) <rzo1@apache.org>" imported
-gpg: key 0306A354336B4F0D: 2 signatures not checked due to missing keys
-gpg: key 0306A354336B4F0D: public key "Jonathan S. Fisher <exabrial@gmail.com>" imported
-gpg: key F9FF83A48D339D37: public key "Markus Jung (CODE SIGNING KEY) <jungm@apache.org>" imported
-gpg: key 91EA7956A2DAD9CE: public key "Richard Zowalla (GitHub) <richard.zowalla@hs-heilbronn.de>" imported
-gpg: Total number processed: 23
-gpg:               imported: 23
-gpg: no ultimately trusted keys found
-+ gpg --batch --export 85FBBE98D6C37CDA8A7D8FF9F9FF83A48D339D37
-+ test -s tomee.gpg
-+ pwd
-+ gpg --batch --no-default-keyring --keyring /usr/local/tomee/tomee.gpg --verify apache-tomee-10.3.0-webprofile.tar.gz.asc apache-tomee-10.3.0-webprofile.tar.gz
++ gpg --batch --verify tomee.tar.gz.asc apache-tomee-10.3.0-webprofile.tar.gz
+gpg: WARNING: unsafe permissions on homedir '/root/.gnupg'
 gpg: Signature made Wed Nov  4 12:37:43 2026 UTC
 gpg:                using RSA key 85FBBE98D6C37CDA8A7D8FF9F9FF83A48D339D37
 gpg: Good signature from "Markus Jung (CODE SIGNING KEY) <jungm@apache.org>" [unknown]
@@ -197,18 +580,26 @@ gpg: Signature notation: manu=2,2.5+1.12,0,3
 gpg: WARNING: This key is not certified with a trusted signature!
 gpg:          There is no indication that the signature belongs to the owner.
 Primary key fingerprint: 85FB BE98 D6C3 7CDA 8A7D  8FF9 F9FF 83A4 8D33 9D37
++ sed 's/\t/  /' tomee.tar.gz.sha512
++ sha512sum -c -
+apache-tomee-10.3.0-webprofile.tar.gz: OK
 + tar -zxf apache-tomee-10.3.0-webprofile.tar.gz
-+ mv apache-tomee-webprofile-10.3.0/BUILDING.txt apache-tomee-webprofile-10.3.0/CONTRIBUTING.md apache-tomee-webprofile-10.3.0/LICENSE apache-tomee-webprofile-10.3.0/NOTICE apache-tomee-webprofile-10.3.0/README.md apache-tomee-webprofile-10.3.0/RELEASE-NOTES apache-tomee-webprofile-10.3.0/RUNNING.txt apache-tomee-webprofile-10.3.0/bin apache-tomee-webprofile-10.3.0/conf apache-tomee-webprofile-10.3.0/lib apache-tomee-webprofile-10.3.0/logs apache-tomee-webprofile-10.3.0/temp apache-tomee-webprofile-10.3.0/webapps apache-tomee-webprofile-10.3.0/work /usr/local/tomee/
-+ rm -rf apache-tomee-webprofile-10.3.0 /tmp/tmp.fPYoatpnmi
-+ rm apache-tomee-10.3.0-webprofile.tar.gz apache-tomee-10.3.0-webprofile.tar.gz.asc tomee.KEYS tomee.gpg
++ mv apache-tomee-webprofile-10.3.0/BUILDING.txt apache-tomee-webprofile-10.3.0/CONTRIBUTING.md apache-tomee-webprofile-10.3.0/LICENSE apache-tomee-webprofile-10.3.0/NOTICE apache-tomee-webprofile-10.3.0/README.md apache-tomee-webprofile-10.3.0/RELEASE-NOTES apache-tomee-webprofile-10.3.0/RUNNING.txt apache-tomee-webprofile-10.3.0/bin apache-tomee-webprofile-10.3.0/conf apache-tomee-webprofile-10.3.0/lib apache-tomee-webprofile-10.3.0/logs apache-tomee-webprofile-10.3.0/temp apache-tomee-webprofile-10.3.0/webapps apache-tomee-webprofile-10.3.0/work /usr/local/tomee
++ rm apache-tomee-10.3.0-webprofile.tar.gz
++ rm -Rf apache-tomee-webprofile-10.3.0
 + rm bin/catalina.bat bin/ciphers.bat bin/configtest.bat bin/digest.bat bin/makebase.bat bin/migrate.bat bin/service.bat bin/service.install.as.admin.bat bin/service.remove.as.admin.bat bin/setclasspath.bat bin/shutdown.bat bin/startup.bat bin/tomee.bat bin/tool-wrapper.bat bin/version.bat
 + rm bin/TomEE.amd64.exe bin/TomEE.exe bin/TomEE.x86.exe
 + rm bin/commons-daemon-native.tar.gz bin/tomcat-native.tar.gz
---> 47ff0c3efbe3
-STEP 11/12: EXPOSE 8080
---> 1986e16bdae7
-STEP 12/12: CMD ["catalina.sh", "run"]
-COMMIT localhost/tomee-smoke:10.3.0-jre17-Temurin-alpine-webprofile
---> a42cb49c60e4
-Successfully tagged localhost/tomee-smoke:10.3.0-jre17-Temurin-alpine-webprofile
-a42cb49c60e4286c04b8459a961ede10a7a852dd8b3208164ad4690d87e7ed5a
++ rm tomee.tar.gz.asc
++ rm tomee.tar.gz.sha512
+STEP 10/11: EXPOSE 8080
+STEP 11/11: CMD ["catalina.sh", "run"]
+COMMIT localhost/tomee-minimal-smoke:10.3.0-temurin-alpine
+time="2026-11-12T23:54:32-06:00" level=warning msg="archive: skipping \"/home/ubuntu/.local/share/containers/storage/vfs/dir/031675a180b0009447be18a3279db37cab7fdcc6e706b398cae34b52430c7511/root/.gnupg/S.dirmngr\" since it is a socket"
+time="2026-11-12T23:54:32-06:00" level=warning msg="archive: skipping \"/home/ubuntu/.local/share/containers/storage/vfs/dir/031675a180b0009447be18a3279db37cab7fdcc6e706b398cae34b52430c7511/root/.gnupg/S.gpg-agent\" since it is a socket"
+time="2026-11-12T23:54:32-06:00" level=warning msg="archive: skipping \"/home/ubuntu/.local/share/containers/storage/vfs/dir/031675a180b0009447be18a3279db37cab7fdcc6e706b398cae34b52430c7511/root/.gnupg/S.gpg-agent.browser\" since it is a socket"
+time="2026-11-12T23:54:32-06:00" level=warning msg="archive: skipping \"/home/ubuntu/.local/share/containers/storage/vfs/dir/031675a180b0009447be18a3279db37cab7fdcc6e706b398cae34b52430c7511/root/.gnupg/S.gpg-agent.extra\" since it is a socket"
+time="2026-11-12T23:54:32-06:00" level=warning msg="archive: skipping \"/home/ubuntu/.local/share/containers/storage/vfs/dir/031675a180b0009447be18a3279db37cab7fdcc6e706b398cae34b52430c7511/root/.gnupg/S.gpg-agent.ssh\" since it is a socket"
+--> 54914244fc82
+Successfully tagged localhost/tomee-minimal-smoke:10.3.0-temurin-alpine
+54914244fc82d246803a562ed8f71e124a77ee5b64d6b597dc42536a771dea4b

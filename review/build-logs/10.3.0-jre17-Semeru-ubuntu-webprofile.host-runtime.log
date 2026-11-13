@@ -1,121 +1,125 @@
-13-Nov-2026 05:35:17.058 INFO [main] jdk.internal.reflect.NativeMethodAccessorImpl.invoke Server version name:   Apache Tomcat (TomEE)/10.1.61 (10.3.0)
-13-Nov-2026 05:35:17.059 INFO [main] jdk.internal.reflect.NativeMethodAccessorImpl.invoke Server built:          Oct 6 2026 22:56:25 UTC
-13-Nov-2026 05:35:17.059 INFO [main] jdk.internal.reflect.NativeMethodAccessorImpl.invoke Server version number: 10.1.61.0
-13-Nov-2026 05:35:17.059 INFO [main] jdk.internal.reflect.NativeMethodAccessorImpl.invoke OS Name:               Linux
-13-Nov-2026 05:35:17.059 INFO [main] jdk.internal.reflect.NativeMethodAccessorImpl.invoke OS Version:            6.18.38+
-13-Nov-2026 05:35:17.060 INFO [main] jdk.internal.reflect.NativeMethodAccessorImpl.invoke Architecture:          amd64
-13-Nov-2026 05:35:17.060 INFO [main] jdk.internal.reflect.NativeMethodAccessorImpl.invoke Java Home:             /opt/java/openjdk
-13-Nov-2026 05:35:17.060 INFO [main] jdk.internal.reflect.NativeMethodAccessorImpl.invoke JVM Version:           17.0.21.0.3+1
-13-Nov-2026 05:35:17.060 INFO [main] jdk.internal.reflect.NativeMethodAccessorImpl.invoke JVM Vendor:            Eclipse OpenJ9
-13-Nov-2026 05:35:17.060 INFO [main] jdk.internal.reflect.NativeMethodAccessorImpl.invoke CATALINA_BASE:         /usr/local/tomee
-13-Nov-2026 05:35:17.060 INFO [main] jdk.internal.reflect.NativeMethodAccessorImpl.invoke CATALINA_HOME:         /usr/local/tomee
-13-Nov-2026 05:35:17.074 INFO [main] jdk.internal.reflect.NativeMethodAccessorImpl.invoke Command line argument: -Xoptionsfile=/opt/java/openjdk/lib/options.default
-13-Nov-2026 05:35:17.074 INFO [main] jdk.internal.reflect.NativeMethodAccessorImpl.invoke Command line argument: -Xlockword:mode=default,noLockword=java/lang/String,noLockword=java/util/MapEntry,noLockword=java/util/HashMap$Entry,noLockword=org/apache/harmony/luni/util/ModifiedMap$Entry,noLockword=java/util/Hashtable$Entry,noLockword=java/lang/invoke/MethodType,noLockword=java/lang/invoke/MethodHandle,noLockword=java/lang/invoke/CollectHandle,noLockword=java/lang/invoke/ConstructorHandle,noLockword=java/lang/invoke/ConvertHandle,noLockword=java/lang/invoke/ArgumentConversionHandle,noLockword=java/lang/invoke/AsTypeHandle,noLockword=java/lang/invoke/ExplicitCastHandle,noLockword=java/lang/invoke/FilterReturnHandle,noLockword=java/lang/invoke/DirectHandle,noLockword=java/lang/invoke/ReceiverBoundHandle,noLockword=java/lang/invoke/DynamicInvokerHandle,noLockword=java/lang/invoke/FieldHandle,noLockword=java/lang/invoke/FieldGetterHandle,noLockword=java/lang/invoke/FieldSetterHandle,noLockword=java/lang/invoke/StaticFieldGetterHandle,noLockword=java/lang/invoke/StaticFieldSetterHandle,noLockword=java/lang/invoke/IndirectHandle,noLockword=java/lang/invoke/InterfaceHandle,noLockword=java/lang/invoke/VirtualHandle,noLockword=java/lang/invoke/PrimitiveHandle,noLockword=java/lang/invoke/InvokeExactHandle,noLockword=java/lang/invoke/InvokeGenericHandle,noLockword=java/lang/invoke/VarargsCollectorHandle,noLockword=java/lang/invoke/ThunkTuple
-13-Nov-2026 05:35:17.074 INFO [main] jdk.internal.reflect.NativeMethodAccessorImpl.invoke Command line argument: -XX:+EnsureHashed:java/lang/Class,java/lang/Thread
-13-Nov-2026 05:35:17.074 INFO [main] jdk.internal.reflect.NativeMethodAccessorImpl.invoke Command line argument: -Dcom.ibm.oti.vm.bootstrap.library.path=/opt/java/openjdk/lib/default:/opt/java/openjdk/lib
-13-Nov-2026 05:35:17.075 INFO [main] jdk.internal.reflect.NativeMethodAccessorImpl.invoke Command line argument: -Dsun.boot.library.path=/opt/java/openjdk/lib/default:/opt/java/openjdk/lib
-13-Nov-2026 05:35:17.075 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Command line argument: -Djava.library.path=/opt/java/openjdk/lib/default:/opt/java/openjdk/lib:/usr/lib64:/usr/lib
-13-Nov-2026 05:35:17.075 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Command line argument: -Djava.home=/opt/java/openjdk
-13-Nov-2026 05:35:17.075 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Command line argument: -Duser.dir=/usr/local/tomee
-13-Nov-2026 05:35:17.075 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Command line argument: -XX:+IgnoreUnrecognizedVMOptions
-13-Nov-2026 05:35:17.075 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Command line argument: -XX:+PortableSharedCache
-13-Nov-2026 05:35:17.075 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Command line argument: -XX:+IdleTuningGcOnIdle
-13-Nov-2026 05:35:17.075 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Command line argument: -Xshareclasses:name=openj9_system_scc,cacheDir=/opt/java/.scc,readonly,nonFatal
-13-Nov-2026 05:35:17.075 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Command line argument: -Djava.util.logging.config.file=/usr/local/tomee/conf/logging.properties
-13-Nov-2026 05:35:17.076 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
-13-Nov-2026 05:35:17.076 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Command line argument: -javaagent:/usr/local/tomee/lib/openejb-javaagent.jar
-13-Nov-2026 05:35:17.076 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Command line argument: -Djdk.tls.ephemeralDHKeySize=2048
-13-Nov-2026 05:35:17.076 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Command line argument: -Djava.protocol.handler.pkgs=org.apache.catalina.webresources
-13-Nov-2026 05:35:17.076 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Command line argument: -Dsun.io.useCanonCaches=false
-13-Nov-2026 05:35:17.076 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Command line argument: -Dorg.apache.catalina.security.SecurityListener.UMASK=0027
-13-Nov-2026 05:35:17.076 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Command line argument: --add-opens=java.base/java.lang=ALL-UNNAMED
-13-Nov-2026 05:35:17.076 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Command line argument: --add-opens=java.base/java.lang.reflect=ALL-UNNAMED
-13-Nov-2026 05:35:17.076 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Command line argument: --add-opens=java.base/java.io=ALL-UNNAMED
-13-Nov-2026 05:35:17.076 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Command line argument: --add-opens=java.base/java.util=ALL-UNNAMED
-13-Nov-2026 05:35:17.076 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Command line argument: --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
-13-Nov-2026 05:35:17.076 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Command line argument: --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
-13-Nov-2026 05:35:17.076 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Command line argument: -Djava.class.path=/usr/local/tomee/bin/bootstrap.jar:/usr/local/tomee/bin/tomcat-juli.jar
-13-Nov-2026 05:35:17.076 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Command line argument: -Dcatalina.base=/usr/local/tomee
-13-Nov-2026 05:35:17.076 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Command line argument: -Dcatalina.home=/usr/local/tomee
-13-Nov-2026 05:35:17.077 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Command line argument: -Djava.io.tmpdir=/usr/local/tomee/temp
-13-Nov-2026 05:35:17.077 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Command line argument: -Dsun.java.command=org.apache.catalina.startup.Bootstrap start
-13-Nov-2026 05:35:17.077 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Command line argument: -Dsun.java.launcher=SUN_STANDARD
-13-Nov-2026 05:35:17.137 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke The Apache Tomcat Native library which allows using OpenSSL was not found on the java.library.path: [/opt/java/openjdk/lib/default:/opt/java/openjdk/lib:/usr/lib64:/usr/lib]
-13-Nov-2026 05:35:17.387 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Initializing ProtocolHandler ["http-nio-8080"]
-13-Nov-2026 05:35:17.661 INFO [main] org.apache.openejb.util.OptionsLog.info Using 'openejb.jdbc.datasource-creator=org.apache.tomee.jdbc.TomEEDataSourceCreator'
-13-Nov-2026 05:35:17.751 INFO [main] org.apache.openejb.OpenEJB$Instance.<init> ********************************************************************************
-13-Nov-2026 05:35:17.751 INFO [main] org.apache.openejb.OpenEJB$Instance.<init> OpenEJB http://tomee.apache.org/
-13-Nov-2026 05:35:17.752 INFO [main] org.apache.openejb.OpenEJB$Instance.<init> Startup: Fri Nov 13 05:35:17 UTC 2026
-13-Nov-2026 05:35:17.752 INFO [main] org.apache.openejb.OpenEJB$Instance.<init> Copyright 1999-2026 (C) Apache TomEE Project, All Rights Reserved.
-13-Nov-2026 05:35:17.752 INFO [main] org.apache.openejb.OpenEJB$Instance.<init> Version: 10.3.0
-13-Nov-2026 05:35:17.752 INFO [main] org.apache.openejb.OpenEJB$Instance.<init> Build date: 20261104
-13-Nov-2026 05:35:17.752 INFO [main] org.apache.openejb.OpenEJB$Instance.<init> Build time: 01:35
-13-Nov-2026 05:35:17.752 INFO [main] org.apache.openejb.OpenEJB$Instance.<init> Git revision: 72f98dd23572a5064e238fc31bf6c9c7aa45eb73
-13-Nov-2026 05:35:17.752 INFO [main] org.apache.openejb.OpenEJB$Instance.<init> ********************************************************************************
-13-Nov-2026 05:35:17.753 INFO [main] org.apache.openejb.OpenEJB$Instance.<init> openejb.home = /usr/local/tomee
-13-Nov-2026 05:35:17.753 INFO [main] org.apache.openejb.OpenEJB$Instance.<init> openejb.base = /usr/local/tomee
-13-Nov-2026 05:35:17.754 INFO [main] org.apache.openejb.cdi.CdiBuilder.initializeOWB Created new singletonService org.apache.openejb.cdi.ThreadSingletonServiceImpl@fe4eab56
-13-Nov-2026 05:35:17.758 INFO [main] org.apache.openejb.cdi.CdiBuilder.initializeOWB Succeeded in installing singleton service
-13-Nov-2026 05:35:17.779 INFO [main] org.apache.openejb.config.ConfigurationFactory.init TomEE configuration file is '/usr/local/tomee/conf/tomee.xml'
-13-Nov-2026 05:35:17.806 INFO [main] org.apache.openejb.config.ConfigurationFactory.configureService Configuring Service(id=Tomcat Security Service, type=SecurityService, provider-id=Tomcat Security Service)
-13-Nov-2026 05:35:17.807 INFO [main] org.apache.openejb.config.ConfigurationFactory.configureService Configuring Service(id=Default Transaction Manager, type=TransactionManager, provider-id=Default Transaction Manager)
-13-Nov-2026 05:35:17.809 INFO [main] org.apache.openejb.util.OptionsLog.info Using 'openejb.deployments.classpath=false'
-13-Nov-2026 05:35:17.813 INFO [main] org.apache.openejb.assembler.classic.Assembler.createRecipe Creating TransactionManager(id=Default Transaction Manager)
-13-Nov-2026 05:35:17.859 INFO [main] org.apache.openejb.assembler.classic.Assembler.createRecipe Creating SecurityService(id=Tomcat Security Service)
-13-Nov-2026 05:35:17.925 INFO [main] org.apache.openejb.server.ServiceManager.initServer Creating ServerService(id=cxf)
-13-Nov-2026 05:35:18.127 INFO [main] org.apache.openejb.server.ServiceManager.initServer Creating ServerService(id=cxf-rs)
-13-Nov-2026 05:35:18.167 INFO [main] org.apache.openejb.server.webservices.WsService.start No org.apache.openejb.server.webservices.WsRegistry available, web services will not be deployed
-13-Nov-2026 05:35:18.173 INFO [main] org.apache.openejb.server.SimpleServiceManager.start   ** Bound Services **
-13-Nov-2026 05:35:18.174 INFO [main] org.apache.openejb.server.SimpleServiceManager.printRow   NAME                 IP              PORT  
-13-Nov-2026 05:35:18.174 INFO [main] org.apache.openejb.server.SimpleServiceManager.start -------
-13-Nov-2026 05:35:18.174 INFO [main] org.apache.openejb.server.SimpleServiceManager.start Ready!
-13-Nov-2026 05:35:18.174 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Server initialization in [1257] milliseconds
-13-Nov-2026 05:35:18.200 INFO [main] org.apache.tomee.catalina.OpenEJBNamingContextListener.bindResource Importing a Tomcat Resource with id 'UserDatabase' of type 'org.apache.catalina.UserDatabase'.
-13-Nov-2026 05:35:18.209 INFO [main] org.apache.openejb.assembler.classic.Assembler.createRecipe Creating Resource(id=UserDatabase)
-13-Nov-2026 05:35:18.231 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Starting service [Catalina]
-13-Nov-2026 05:35:18.231 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Starting Servlet engine: [Apache Tomcat (TomEE)/10.1.61 (10.3.0)]
-13-Nov-2026 05:35:18.240 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Deploying web application directory [/usr/local/tomee/webapps/ROOT]
-13-Nov-2026 05:35:18.253 INFO [main] org.apache.tomee.catalina.TomcatWebAppBuilder.init ------------------------- localhost -> /
-13-Nov-2026 05:35:18.418 INFO [main] org.apache.openejb.config.ConfigurationFactory.configureApplication Configuring enterprise application: /usr/local/tomee/webapps/ROOT
-13-Nov-2026 05:35:18.453 INFO [main] org.apache.openejb.config.AppInfoBuilder.build Enterprise application "/usr/local/tomee/webapps/ROOT" loaded.
-13-Nov-2026 05:35:18.458 INFO [main] org.apache.openejb.assembler.classic.Assembler.createApplication Assembling app: /usr/local/tomee/webapps/ROOT
-13-Nov-2026 05:35:18.540 INFO [main] org.apache.openejb.assembler.classic.ValidatorBuilder.getConfig Ignoring XML Configuration for validator org.apache.bval.jsr.ConfigurationImpl
-13-Nov-2026 05:35:18.572 INFO [main] org.apache.openejb.assembler.classic.Assembler.createApplication Deployed Application(path=/usr/local/tomee/webapps/ROOT)
-13-Nov-2026 05:35:18.694 INFO [main] org.apache.myfaces.webapp.MyFacesContainerInitializer.onStartup Using org.apache.myfaces.webapp.MyFacesContainerInitializer
-13-Nov-2026 05:35:18.736 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
-13-Nov-2026 05:35:18.783 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Deployment of web application directory [/usr/local/tomee/webapps/ROOT] has finished in [543] ms
-13-Nov-2026 05:35:18.784 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Deploying web application directory [/usr/local/tomee/webapps/docs]
-13-Nov-2026 05:35:18.785 INFO [main] org.apache.tomee.catalina.TomcatWebAppBuilder.init ------------------------- localhost -> /docs
-13-Nov-2026 05:35:18.801 INFO [main] org.apache.openejb.config.ConfigurationFactory.configureApplication Configuring enterprise application: /usr/local/tomee/webapps/docs
-13-Nov-2026 05:35:18.806 INFO [main] org.apache.openejb.config.AppInfoBuilder.build Enterprise application "/usr/local/tomee/webapps/docs" loaded.
-13-Nov-2026 05:35:18.806 INFO [main] org.apache.openejb.assembler.classic.Assembler.createApplication Assembling app: /usr/local/tomee/webapps/docs
-13-Nov-2026 05:35:18.810 INFO [main] org.apache.openejb.assembler.classic.ValidatorBuilder.getConfig Ignoring XML Configuration for validator org.apache.bval.jsr.ConfigurationImpl
-13-Nov-2026 05:35:18.812 INFO [main] org.apache.tomee.catalina.TomcatWebAppBuilder.deployWebApps using context file /usr/local/tomee/webapps/docs/META-INF/context.xml
-13-Nov-2026 05:35:18.812 INFO [main] org.apache.openejb.assembler.classic.Assembler.createApplication Deployed Application(path=/usr/local/tomee/webapps/docs)
-13-Nov-2026 05:35:18.832 INFO [main] org.apache.myfaces.webapp.MyFacesContainerInitializer.onStartup Using org.apache.myfaces.webapp.MyFacesContainerInitializer
-13-Nov-2026 05:35:18.843 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
-13-Nov-2026 05:35:18.850 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Deployment of web application directory [/usr/local/tomee/webapps/docs] has finished in [66] ms
-13-Nov-2026 05:35:18.850 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Deploying web application directory [/usr/local/tomee/webapps/host-manager]
-13-Nov-2026 05:35:18.851 INFO [main] org.apache.tomee.catalina.TomcatWebAppBuilder.init ------------------------- localhost -> /host-manager
-13-Nov-2026 05:35:18.881 INFO [main] org.apache.openejb.config.ConfigurationFactory.configureApplication Configuring enterprise application: /usr/local/tomee/webapps/host-manager
-13-Nov-2026 05:35:18.889 INFO [main] org.apache.openejb.config.AppInfoBuilder.build Enterprise application "/usr/local/tomee/webapps/host-manager" loaded.
-13-Nov-2026 05:35:18.889 INFO [main] org.apache.openejb.assembler.classic.Assembler.createApplication Assembling app: /usr/local/tomee/webapps/host-manager
-13-Nov-2026 05:35:18.892 INFO [main] org.apache.openejb.assembler.classic.ValidatorBuilder.getConfig Ignoring XML Configuration for validator org.apache.bval.jsr.ConfigurationImpl
-13-Nov-2026 05:35:18.895 INFO [main] org.apache.tomee.catalina.TomcatWebAppBuilder.deployWebApps using context file /usr/local/tomee/webapps/host-manager/META-INF/context.xml
-13-Nov-2026 05:35:18.895 INFO [main] org.apache.openejb.assembler.classic.Assembler.createApplication Deployed Application(path=/usr/local/tomee/webapps/host-manager)
-13-Nov-2026 05:35:18.916 INFO [main] org.apache.myfaces.webapp.MyFacesContainerInitializer.onStartup Using org.apache.myfaces.webapp.MyFacesContainerInitializer
-13-Nov-2026 05:35:18.929 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
-13-Nov-2026 05:35:18.942 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Deployment of web application directory [/usr/local/tomee/webapps/host-manager] has finished in [91] ms
-13-Nov-2026 05:35:18.942 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Deploying web application directory [/usr/local/tomee/webapps/manager]
-13-Nov-2026 05:35:18.943 INFO [main] org.apache.tomee.catalina.TomcatWebAppBuilder.init ------------------------- localhost -> /manager
-13-Nov-2026 05:35:18.959 INFO [main] org.apache.openejb.config.ConfigurationFactory.configureApplication Configuring enterprise application: /usr/local/tomee/webapps/manager
-13-Nov-2026 05:35:18.967 INFO [main] org.apache.openejb.config.AppInfoBuilder.build Enterprise application "/usr/local/tomee/webapps/manager" loaded.
-13-Nov-2026 05:35:18.967 INFO [main] org.apache.openejb.assembler.classic.Assembler.createApplication Assembling app: /usr/local/tomee/webapps/manager
-13-Nov-2026 05:35:18.971 INFO [main] org.apache.openejb.assembler.classic.ValidatorBuilder.getConfig Ignoring XML Configuration for validator org.apache.bval.jsr.ConfigurationImpl
-13-Nov-2026 05:35:18.973 INFO [main] org.apache.tomee.catalina.TomcatWebAppBuilder.deployWebApps using context file /usr/local/tomee/webapps/manager/META-INF/context.xml
-13-Nov-2026 05:35:18.973 INFO [main] org.apache.openejb.assembler.classic.Assembler.createApplication Deployed Application(path=/usr/local/tomee/webapps/manager)
-13-Nov-2026 05:35:18.993 INFO [main] org.apache.myfaces.webapp.MyFacesContainerInitializer.onStartup Using org.apache.myfaces.webapp.MyFacesContainerInitializer
-13-Nov-2026 05:35:19.004 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
-13-Nov-2026 05:35:19.014 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Deployment of web application directory [/usr/local/tomee/webapps/manager] has finished in [71] ms
-13-Nov-2026 05:35:19.017 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Starting ProtocolHandler ["http-nio-8080"]
-13-Nov-2026 05:35:19.026 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Server startup in [851] milliseconds
+Source commit: 78b8b8e777df44091537d5f2e1fe7ad3d9359f3f
+Runtime: Podman --cgroup-manager=cgroupfs, --network=host --cgroups=disabled
+HTTP GET /: 200
+
+13-Nov-2026 05:58:05.915 INFO [main] jdk.internal.reflect.NativeMethodAccessorImpl.invoke Server version name:   Apache Tomcat (TomEE)/10.1.61 (10.3.0)
+13-Nov-2026 05:58:05.918 INFO [main] jdk.internal.reflect.NativeMethodAccessorImpl.invoke Server built:          Oct 6 2026 22:56:25 UTC
+13-Nov-2026 05:58:05.918 INFO [main] jdk.internal.reflect.NativeMethodAccessorImpl.invoke Server version number: 10.1.61.0
+13-Nov-2026 05:58:05.919 INFO [main] jdk.internal.reflect.NativeMethodAccessorImpl.invoke OS Name:               Linux
+13-Nov-2026 05:58:05.919 INFO [main] jdk.internal.reflect.NativeMethodAccessorImpl.invoke OS Version:            6.18.38+
+13-Nov-2026 05:58:05.919 INFO [main] jdk.internal.reflect.NativeMethodAccessorImpl.invoke Architecture:          amd64
+13-Nov-2026 05:58:05.919 INFO [main] jdk.internal.reflect.NativeMethodAccessorImpl.invoke Java Home:             /opt/java/openjdk
+13-Nov-2026 05:58:05.919 INFO [main] jdk.internal.reflect.NativeMethodAccessorImpl.invoke JVM Version:           17.0.21.0.3+1
+13-Nov-2026 05:58:05.919 INFO [main] jdk.internal.reflect.NativeMethodAccessorImpl.invoke JVM Vendor:            Eclipse OpenJ9
+13-Nov-2026 05:58:05.919 INFO [main] jdk.internal.reflect.NativeMethodAccessorImpl.invoke CATALINA_BASE:         /usr/local/tomee
+13-Nov-2026 05:58:05.919 INFO [main] jdk.internal.reflect.NativeMethodAccessorImpl.invoke CATALINA_HOME:         /usr/local/tomee
+13-Nov-2026 05:58:05.937 INFO [main] jdk.internal.reflect.NativeMethodAccessorImpl.invoke Command line argument: -Xoptionsfile=/opt/java/openjdk/lib/options.default
+13-Nov-2026 05:58:05.937 INFO [main] jdk.internal.reflect.NativeMethodAccessorImpl.invoke Command line argument: -Xlockword:mode=default,noLockword=java/lang/String,noLockword=java/util/MapEntry,noLockword=java/util/HashMap$Entry,noLockword=org/apache/harmony/luni/util/ModifiedMap$Entry,noLockword=java/util/Hashtable$Entry,noLockword=java/lang/invoke/MethodType,noLockword=java/lang/invoke/MethodHandle,noLockword=java/lang/invoke/CollectHandle,noLockword=java/lang/invoke/ConstructorHandle,noLockword=java/lang/invoke/ConvertHandle,noLockword=java/lang/invoke/ArgumentConversionHandle,noLockword=java/lang/invoke/AsTypeHandle,noLockword=java/lang/invoke/ExplicitCastHandle,noLockword=java/lang/invoke/FilterReturnHandle,noLockword=java/lang/invoke/DirectHandle,noLockword=java/lang/invoke/ReceiverBoundHandle,noLockword=java/lang/invoke/DynamicInvokerHandle,noLockword=java/lang/invoke/FieldHandle,noLockword=java/lang/invoke/FieldGetterHandle,noLockword=java/lang/invoke/FieldSetterHandle,noLockword=java/lang/invoke/StaticFieldGetterHandle,noLockword=java/lang/invoke/StaticFieldSetterHandle,noLockword=java/lang/invoke/IndirectHandle,noLockword=java/lang/invoke/InterfaceHandle,noLockword=java/lang/invoke/VirtualHandle,noLockword=java/lang/invoke/PrimitiveHandle,noLockword=java/lang/invoke/InvokeExactHandle,noLockword=java/lang/invoke/InvokeGenericHandle,noLockword=java/lang/invoke/VarargsCollectorHandle,noLockword=java/lang/invoke/ThunkTuple
+13-Nov-2026 05:58:05.937 INFO [main] jdk.internal.reflect.NativeMethodAccessorImpl.invoke Command line argument: -XX:+EnsureHashed:java/lang/Class,java/lang/Thread
+13-Nov-2026 05:58:05.937 INFO [main] jdk.internal.reflect.NativeMethodAccessorImpl.invoke Command line argument: -Dcom.ibm.oti.vm.bootstrap.library.path=/opt/java/openjdk/lib/default:/opt/java/openjdk/lib
+13-Nov-2026 05:58:05.938 INFO [main] jdk.internal.reflect.NativeMethodAccessorImpl.invoke Command line argument: -Dsun.boot.library.path=/opt/java/openjdk/lib/default:/opt/java/openjdk/lib
+13-Nov-2026 05:58:05.938 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Command line argument: -Djava.library.path=/opt/java/openjdk/lib/default:/opt/java/openjdk/lib:/usr/lib64:/usr/lib
+13-Nov-2026 05:58:05.938 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Command line argument: -Djava.home=/opt/java/openjdk
+13-Nov-2026 05:58:05.938 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Command line argument: -Duser.dir=/usr/local/tomee
+13-Nov-2026 05:58:05.938 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Command line argument: -XX:+IgnoreUnrecognizedVMOptions
+13-Nov-2026 05:58:05.938 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Command line argument: -XX:+PortableSharedCache
+13-Nov-2026 05:58:05.938 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Command line argument: -XX:+IdleTuningGcOnIdle
+13-Nov-2026 05:58:05.938 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Command line argument: -Xshareclasses:name=openj9_system_scc,cacheDir=/opt/java/.scc,readonly,nonFatal
+13-Nov-2026 05:58:05.939 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Command line argument: -Djava.util.logging.config.file=/usr/local/tomee/conf/logging.properties
+13-Nov-2026 05:58:05.939 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+13-Nov-2026 05:58:05.939 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Command line argument: -javaagent:/usr/local/tomee/lib/openejb-javaagent.jar
+13-Nov-2026 05:58:05.939 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Command line argument: -Djdk.tls.ephemeralDHKeySize=2048
+13-Nov-2026 05:58:05.939 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Command line argument: -Djava.protocol.handler.pkgs=org.apache.catalina.webresources
+13-Nov-2026 05:58:05.939 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Command line argument: -Dsun.io.useCanonCaches=false
+13-Nov-2026 05:58:05.939 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Command line argument: -Dorg.apache.catalina.security.SecurityListener.UMASK=0027
+13-Nov-2026 05:58:05.939 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Command line argument: --add-opens=java.base/java.lang=ALL-UNNAMED
+13-Nov-2026 05:58:05.939 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Command line argument: --add-opens=java.base/java.lang.reflect=ALL-UNNAMED
+13-Nov-2026 05:58:05.939 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Command line argument: --add-opens=java.base/java.io=ALL-UNNAMED
+13-Nov-2026 05:58:05.939 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Command line argument: --add-opens=java.base/java.util=ALL-UNNAMED
+13-Nov-2026 05:58:05.940 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Command line argument: --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+13-Nov-2026 05:58:05.940 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Command line argument: --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+13-Nov-2026 05:58:05.940 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Command line argument: -Djava.class.path=/usr/local/tomee/bin/bootstrap.jar:/usr/local/tomee/bin/tomcat-juli.jar
+13-Nov-2026 05:58:05.940 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Command line argument: -Dcatalina.base=/usr/local/tomee
+13-Nov-2026 05:58:05.940 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Command line argument: -Dcatalina.home=/usr/local/tomee
+13-Nov-2026 05:58:05.940 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Command line argument: -Djava.io.tmpdir=/usr/local/tomee/temp
+13-Nov-2026 05:58:05.940 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Command line argument: -Dsun.java.command=org.apache.catalina.startup.Bootstrap start
+13-Nov-2026 05:58:05.940 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Command line argument: -Dsun.java.launcher=SUN_STANDARD
+13-Nov-2026 05:58:05.941 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke The Apache Tomcat Native library which allows using OpenSSL was not found on the java.library.path: [/opt/java/openjdk/lib/default:/opt/java/openjdk/lib:/usr/lib64:/usr/lib]
+13-Nov-2026 05:58:06.113 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Initializing ProtocolHandler ["http-nio-8080"]
+13-Nov-2026 05:58:06.372 INFO [main] org.apache.openejb.util.OptionsLog.info Using 'openejb.jdbc.datasource-creator=org.apache.tomee.jdbc.TomEEDataSourceCreator'
+13-Nov-2026 05:58:06.471 INFO [main] org.apache.openejb.OpenEJB$Instance.<init> ********************************************************************************
+13-Nov-2026 05:58:06.471 INFO [main] org.apache.openejb.OpenEJB$Instance.<init> OpenEJB http://tomee.apache.org/
+13-Nov-2026 05:58:06.471 INFO [main] org.apache.openejb.OpenEJB$Instance.<init> Startup: Fri Nov 13 05:58:06 UTC 2026
+13-Nov-2026 05:58:06.471 INFO [main] org.apache.openejb.OpenEJB$Instance.<init> Copyright 1999-2026 (C) Apache TomEE Project, All Rights Reserved.
+13-Nov-2026 05:58:06.471 INFO [main] org.apache.openejb.OpenEJB$Instance.<init> Version: 10.3.0
+13-Nov-2026 05:58:06.472 INFO [main] org.apache.openejb.OpenEJB$Instance.<init> Build date: 20261104
+13-Nov-2026 05:58:06.472 INFO [main] org.apache.openejb.OpenEJB$Instance.<init> Build time: 01:35
+13-Nov-2026 05:58:06.472 INFO [main] org.apache.openejb.OpenEJB$Instance.<init> Git revision: 72f98dd23572a5064e238fc31bf6c9c7aa45eb73
+13-Nov-2026 05:58:06.472 INFO [main] org.apache.openejb.OpenEJB$Instance.<init> ********************************************************************************
+13-Nov-2026 05:58:06.472 INFO [main] org.apache.openejb.OpenEJB$Instance.<init> openejb.home = /usr/local/tomee
+13-Nov-2026 05:58:06.472 INFO [main] org.apache.openejb.OpenEJB$Instance.<init> openejb.base = /usr/local/tomee
+13-Nov-2026 05:58:06.473 INFO [main] org.apache.openejb.cdi.CdiBuilder.initializeOWB Created new singletonService org.apache.openejb.cdi.ThreadSingletonServiceImpl@3437d64c
+13-Nov-2026 05:58:06.474 INFO [main] org.apache.openejb.cdi.CdiBuilder.initializeOWB Succeeded in installing singleton service
+13-Nov-2026 05:58:06.498 INFO [main] org.apache.openejb.config.ConfigurationFactory.init TomEE configuration file is '/usr/local/tomee/conf/tomee.xml'
+13-Nov-2026 05:58:06.528 INFO [main] org.apache.openejb.config.ConfigurationFactory.configureService Configuring Service(id=Tomcat Security Service, type=SecurityService, provider-id=Tomcat Security Service)
+13-Nov-2026 05:58:06.529 INFO [main] org.apache.openejb.config.ConfigurationFactory.configureService Configuring Service(id=Default Transaction Manager, type=TransactionManager, provider-id=Default Transaction Manager)
+13-Nov-2026 05:58:06.533 INFO [main] org.apache.openejb.util.OptionsLog.info Using 'openejb.deployments.classpath=false'
+13-Nov-2026 05:58:06.536 INFO [main] org.apache.openejb.assembler.classic.Assembler.createRecipe Creating TransactionManager(id=Default Transaction Manager)
+13-Nov-2026 05:58:06.586 INFO [main] org.apache.openejb.assembler.classic.Assembler.createRecipe Creating SecurityService(id=Tomcat Security Service)
+13-Nov-2026 05:58:06.659 INFO [main] org.apache.openejb.server.ServiceManager.initServer Creating ServerService(id=cxf)
+13-Nov-2026 05:58:06.852 INFO [main] org.apache.openejb.server.ServiceManager.initServer Creating ServerService(id=cxf-rs)
+13-Nov-2026 05:58:06.892 INFO [main] org.apache.openejb.server.webservices.WsService.start No org.apache.openejb.server.webservices.WsRegistry available, web services will not be deployed
+13-Nov-2026 05:58:06.898 INFO [main] org.apache.openejb.server.SimpleServiceManager.start   ** Bound Services **
+13-Nov-2026 05:58:06.899 INFO [main] org.apache.openejb.server.SimpleServiceManager.printRow   NAME                 IP              PORT  
+13-Nov-2026 05:58:06.899 INFO [main] org.apache.openejb.server.SimpleServiceManager.start -------
+13-Nov-2026 05:58:06.899 INFO [main] org.apache.openejb.server.SimpleServiceManager.start Ready!
+13-Nov-2026 05:58:06.899 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Server initialization in [1120] milliseconds
+13-Nov-2026 05:58:06.923 INFO [main] org.apache.tomee.catalina.OpenEJBNamingContextListener.bindResource Importing a Tomcat Resource with id 'UserDatabase' of type 'org.apache.catalina.UserDatabase'.
+13-Nov-2026 05:58:06.931 INFO [main] org.apache.openejb.assembler.classic.Assembler.createRecipe Creating Resource(id=UserDatabase)
+13-Nov-2026 05:58:06.953 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Starting service [Catalina]
+13-Nov-2026 05:58:06.953 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Starting Servlet engine: [Apache Tomcat (TomEE)/10.1.61 (10.3.0)]
+13-Nov-2026 05:58:06.962 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Deploying web application directory [/usr/local/tomee/webapps/ROOT]
+13-Nov-2026 05:58:06.976 INFO [main] org.apache.tomee.catalina.TomcatWebAppBuilder.init ------------------------- localhost -> /
+13-Nov-2026 05:58:07.137 INFO [main] org.apache.openejb.config.ConfigurationFactory.configureApplication Configuring enterprise application: /usr/local/tomee/webapps/ROOT
+13-Nov-2026 05:58:07.174 INFO [main] org.apache.openejb.config.AppInfoBuilder.build Enterprise application "/usr/local/tomee/webapps/ROOT" loaded.
+13-Nov-2026 05:58:07.180 INFO [main] org.apache.openejb.assembler.classic.Assembler.createApplication Assembling app: /usr/local/tomee/webapps/ROOT
+13-Nov-2026 05:58:07.250 INFO [main] org.apache.openejb.assembler.classic.ValidatorBuilder.getConfig Ignoring XML Configuration for validator org.apache.bval.jsr.ConfigurationImpl
+13-Nov-2026 05:58:07.283 INFO [main] org.apache.openejb.assembler.classic.Assembler.createApplication Deployed Application(path=/usr/local/tomee/webapps/ROOT)
+13-Nov-2026 05:58:07.395 INFO [main] org.apache.myfaces.webapp.MyFacesContainerInitializer.onStartup Using org.apache.myfaces.webapp.MyFacesContainerInitializer
+13-Nov-2026 05:58:07.440 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+13-Nov-2026 05:58:07.489 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Deployment of web application directory [/usr/local/tomee/webapps/ROOT] has finished in [526] ms
+13-Nov-2026 05:58:07.489 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Deploying web application directory [/usr/local/tomee/webapps/docs]
+13-Nov-2026 05:58:07.491 INFO [main] org.apache.tomee.catalina.TomcatWebAppBuilder.init ------------------------- localhost -> /docs
+13-Nov-2026 05:58:07.507 INFO [main] org.apache.openejb.config.ConfigurationFactory.configureApplication Configuring enterprise application: /usr/local/tomee/webapps/docs
+13-Nov-2026 05:58:07.513 INFO [main] org.apache.openejb.config.AppInfoBuilder.build Enterprise application "/usr/local/tomee/webapps/docs" loaded.
+13-Nov-2026 05:58:07.514 INFO [main] org.apache.openejb.assembler.classic.Assembler.createApplication Assembling app: /usr/local/tomee/webapps/docs
+13-Nov-2026 05:58:07.517 INFO [main] org.apache.openejb.assembler.classic.ValidatorBuilder.getConfig Ignoring XML Configuration for validator org.apache.bval.jsr.ConfigurationImpl
+13-Nov-2026 05:58:07.520 INFO [main] org.apache.tomee.catalina.TomcatWebAppBuilder.deployWebApps using context file /usr/local/tomee/webapps/docs/META-INF/context.xml
+13-Nov-2026 05:58:07.520 INFO [main] org.apache.openejb.assembler.classic.Assembler.createApplication Deployed Application(path=/usr/local/tomee/webapps/docs)
+13-Nov-2026 05:58:07.540 INFO [main] org.apache.myfaces.webapp.MyFacesContainerInitializer.onStartup Using org.apache.myfaces.webapp.MyFacesContainerInitializer
+13-Nov-2026 05:58:07.553 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+13-Nov-2026 05:58:07.560 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Deployment of web application directory [/usr/local/tomee/webapps/docs] has finished in [71] ms
+13-Nov-2026 05:58:07.560 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Deploying web application directory [/usr/local/tomee/webapps/host-manager]
+13-Nov-2026 05:58:07.561 INFO [main] org.apache.tomee.catalina.TomcatWebAppBuilder.init ------------------------- localhost -> /host-manager
+13-Nov-2026 05:58:07.592 INFO [main] org.apache.openejb.config.ConfigurationFactory.configureApplication Configuring enterprise application: /usr/local/tomee/webapps/host-manager
+13-Nov-2026 05:58:07.599 INFO [main] org.apache.openejb.config.AppInfoBuilder.build Enterprise application "/usr/local/tomee/webapps/host-manager" loaded.
+13-Nov-2026 05:58:07.600 INFO [main] org.apache.openejb.assembler.classic.Assembler.createApplication Assembling app: /usr/local/tomee/webapps/host-manager
+13-Nov-2026 05:58:07.603 INFO [main] org.apache.openejb.assembler.classic.ValidatorBuilder.getConfig Ignoring XML Configuration for validator org.apache.bval.jsr.ConfigurationImpl
+13-Nov-2026 05:58:07.605 INFO [main] org.apache.tomee.catalina.TomcatWebAppBuilder.deployWebApps using context file /usr/local/tomee/webapps/host-manager/META-INF/context.xml
+13-Nov-2026 05:58:07.605 INFO [main] org.apache.openejb.assembler.classic.Assembler.createApplication Deployed Application(path=/usr/local/tomee/webapps/host-manager)
+13-Nov-2026 05:58:07.628 INFO [main] org.apache.myfaces.webapp.MyFacesContainerInitializer.onStartup Using org.apache.myfaces.webapp.MyFacesContainerInitializer
+13-Nov-2026 05:58:07.641 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+13-Nov-2026 05:58:07.657 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Deployment of web application directory [/usr/local/tomee/webapps/host-manager] has finished in [96] ms
+13-Nov-2026 05:58:07.657 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Deploying web application directory [/usr/local/tomee/webapps/manager]
+13-Nov-2026 05:58:07.658 INFO [main] org.apache.tomee.catalina.TomcatWebAppBuilder.init ------------------------- localhost -> /manager
+13-Nov-2026 05:58:07.674 INFO [main] org.apache.openejb.config.ConfigurationFactory.configureApplication Configuring enterprise application: /usr/local/tomee/webapps/manager
+13-Nov-2026 05:58:07.683 INFO [main] org.apache.openejb.config.AppInfoBuilder.build Enterprise application "/usr/local/tomee/webapps/manager" loaded.
+13-Nov-2026 05:58:07.684 INFO [main] org.apache.openejb.assembler.classic.Assembler.createApplication Assembling app: /usr/local/tomee/webapps/manager
+13-Nov-2026 05:58:07.687 INFO [main] org.apache.openejb.assembler.classic.ValidatorBuilder.getConfig Ignoring XML Configuration for validator org.apache.bval.jsr.ConfigurationImpl
+13-Nov-2026 05:58:07.689 INFO [main] org.apache.tomee.catalina.TomcatWebAppBuilder.deployWebApps using context file /usr/local/tomee/webapps/manager/META-INF/context.xml
+13-Nov-2026 05:58:07.689 INFO [main] org.apache.openejb.assembler.classic.Assembler.createApplication Deployed Application(path=/usr/local/tomee/webapps/manager)
+13-Nov-2026 05:58:07.712 INFO [main] org.apache.myfaces.webapp.MyFacesContainerInitializer.onStartup Using org.apache.myfaces.webapp.MyFacesContainerInitializer
+13-Nov-2026 05:58:07.723 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+13-Nov-2026 05:58:07.731 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Deployment of web application directory [/usr/local/tomee/webapps/manager] has finished in [74] ms
+13-Nov-2026 05:58:07.734 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Starting ProtocolHandler ["http-nio-8080"]
+13-Nov-2026 05:58:07.748 INFO [main] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke Server startup in [848] milliseconds
