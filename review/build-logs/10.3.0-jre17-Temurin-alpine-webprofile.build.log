@@ -1,0 +1,214 @@
+STEP 1/12: FROM eclipse-temurin:17-jre-alpine
+Resolving "eclipse-temurin" using unqualified-search registries (/home/ubuntu/.config/containers/registries.conf)
+Trying to pull docker.io/library/eclipse-temurin:17-jre-alpine...
+Getting image source signatures
+Copying blob sha256:5a1d02633a996e89809e5ec77ed71a8ec39581554fbb82ae1d86ca5ff7613e95
+Copying blob sha256:881fc932939efef04ca120ad44bbd2c0917851eb247aa4995428afb1e80ede17
+Copying blob sha256:1cd29f11df7190b54d024588b636720cf0dce330a910e4b9e777e712485e9c2b
+Copying blob sha256:62fc65da0c5fbc0036993160c5218ccf5f099137891cc3173dd0584fe80ca6ec
+Copying blob sha256:a2c1466a5ca3232269f244aa3094532f0316913add44aba17d25893be1044bc4
+Copying config sha256:bf5ee33acf101a1eb81c8b78916a84c0fb3665a808ad9f8b2ceedfb74a40ec70
+Writing manifest to image destination
+STEP 2/12: ENV PATH=/usr/local/tomee/bin:$PATH
+--> 212cb6b44038
+STEP 3/12: RUN mkdir -p /usr/local/tomee ~/.gnupg
+--> 4b528fd8abac
+STEP 4/12: WORKDIR /usr/local/tomee
+--> d3085f3986e2
+STEP 5/12: RUN apk add --no-cache gpg gpg-agent dirmngr curl   && rm -rf /var/cache/apk/*
+(1/5) Installing c-ares (1.34.9-r0)
+(2/5) Installing nghttp2-libs (1.70.0-r0)
+(3/5) Installing libpsl (0.21.5-r3)
+(4/5) Installing libcurl (8.23.0-r0)
+(5/5) Installing curl (8.23.0-r0)
+Executing busybox-1.37.0-r31.trigger
+OK: 42.4 MiB in 78 packages
+--> 3bb7cc2959a6
+STEP 6/12: ENV TOMEE_VER=10.3.0
+--> d298672df552
+STEP 7/12: ENV TOMEE_BUILD=webprofile
+--> b87750ef506b
+STEP 8/12: ENV TOMEE_SHA512=6c0ca666939535e3d4fb091e9155e85fd2dfe6f4f84035f84cb156574ce48c7a920d3f58ba3c1485a9a81b4735b96a1491f36776f17ab2a0084e3b8eb979b167
+--> f82899dd5bcb
+STEP 9/12: ENV TOMEE_GPG_KEY=85FBBE98D6C37CDA8A7D8FF9F9FF83A48D339D37
+--> 1f839a924dbb
+STEP 10/12: RUN set -eux;     ddist() {         local f="$1"; shift;         local distFile="$1"; shift;         local success=;         local distUrl=;         for distUrl in             https://downloads.apache.org/             https://archive.apache.org/dist/         ; do             if curl -fSL --retry 3 --connect-timeout 30 "$distUrl$distFile" -o "$f" && [ -s "$f" ]; then                 success=1;                 break;             fi;         done;         [ -n "$success" ];     };     archive="apache-tomee-${TOMEE_VER}-${TOMEE_BUILD}.tar.gz";     ddist "$archive" "tomee/tomee-${TOMEE_VER}/$archive";     ddist "$archive.asc" "tomee/tomee-${TOMEE_VER}/$archive.asc";     ddist tomee.KEYS tomee/KEYS;     echo "$TOMEE_SHA512  $archive" | sha512sum -c -;     export GNUPGHOME="$(mktemp -d)";     gpg --batch --import tomee.KEYS;     gpg --batch --export "$TOMEE_GPG_KEY" > tomee.gpg;     test -s tomee.gpg;     gpg --batch --no-default-keyring --keyring "$(pwd)/tomee.gpg" --verify "$archive.asc" "$archive";     tar -zxf "$archive";     mv "apache-tomee-${TOMEE_BUILD}-${TOMEE_VER}"/* /usr/local/tomee/;     rm -rf "apache-tomee-${TOMEE_BUILD}-${TOMEE_VER}" "$GNUPGHOME";     rm "$archive" "$archive.asc" tomee.KEYS tomee.gpg;     rm bin/*.bat;     rm bin/*.exe;     rm bin/*.tar.gz*
++ archive=apache-tomee-10.3.0-webprofile.tar.gz
++ ddist apache-tomee-10.3.0-webprofile.tar.gz tomee/tomee-10.3.0/apache-tomee-10.3.0-webprofile.tar.gz
++ local 'f=apache-tomee-10.3.0-webprofile.tar.gz'
++ shift
++ local 'distFile=tomee/tomee-10.3.0/apache-tomee-10.3.0-webprofile.tar.gz'
++ shift
++ local 'success='
++ local 'distUrl='
++ curl -fSL --retry 3 --connect-timeout 30 https://downloads.apache.org/tomee/tomee-10.3.0/apache-tomee-10.3.0-webprofile.tar.gz -o apache-tomee-10.3.0-webprofile.tar.gz
+  % Total    % Received % Xferd  Average Speed  Time    Time    Time   Current
+                                 Dload  Upload  Total   Spent   Left   Speed
+
+  0      0   0      0   0      0      0      0                              0
+  0 58.68M   0 148.3k   0      0  92955      0   11:01   00:01   11:00 147.3k
+  1 58.68M   1 703.0k   0      0 266.5k      0   03:45   00:02   03:43 349.7k
+  2 58.68M   2  1.18M   0      0 333.6k      0   03:00   00:03   02:57 402.9k
+  2 58.68M   2  1.66M   0      0 367.4k      0   02:43   00:04   02:39 424.7k
+  4 58.68M   4  2.44M   0      0 441.9k      0   02:15   00:05   02:10 497.0k
+  6 58.68M   6  3.57M   0      0 549.0k      0   01:49   00:06   01:43 698.1k
+  8 58.68M   8  4.94M   0      0 659.8k      0   01:31   00:07   01:24 865.9k
+ 10 58.68M  10  6.25M   0      0 738.6k      0   01:21   00:08   01:13  1.00M
+ 11 58.68M  11  7.03M   0      0 744.6k      0   01:20   00:09   01:11  1.06M
+ 14 58.68M  14  8.38M   0      0 804.4k      0   01:14   00:10   01:04  1.18M
+ 16 58.68M  16  9.63M   0      0 845.2k      0   01:11   00:11   01:00  1.20M
+ 19 58.68M  19 11.39M   0      0 920.5k      0   01:05   00:12   00:53  1.28M
+ 22 58.68M  22 13.03M   0      0 975.3k      0   01:01   00:13   00:48  1.35M
+ 24 58.68M  24 14.49M   0      0  0.98M      0   00:59   00:14   00:45  1.48M
+ 25 58.68M  25 15.18M   0      0 990.9k      0   01:00   00:15   00:45  1.35M
+ 27 58.68M  27 16.04M   0      0 983.9k      0   01:01   00:16   00:45  1.27M
+ 28 58.68M  28 16.86M   0      0 975.8k      0   01:01   00:17   00:44  1.08M
+ 29 58.68M  29 17.41M   0      0 953.7k      0   01:03   00:18   00:45 894.5k
+ 31 58.68M  31 18.62M   0      0 967.2k      0   01:02   00:19   00:43 841.3k
+ 32 58.68M  32 19.27M   0      0 952.9k      0   01:03   00:20   00:43 833.9k
+ 34 58.68M  34 20.01M   0      0 943.5k      0   01:03   00:21   00:42 809.2k
+ 37 58.68M  37 21.97M   0      0 990.5k      0   01:00   00:22   00:38  1.01M
+ 39 58.68M  39 22.89M   0      0 988.1k      0   01:00   00:23   00:37  1.08M
+ 40 58.68M  40 23.75M   0      0 983.8k      0   01:01   00:24   00:37  1.02M
+ 43 58.68M  43 25.27M   0      0  0.98M      0   00:59   00:25   00:34  1.19M
+ 45 58.68M  45 26.74M   0      0  1.00M      0   00:58   00:26   00:32  1.34M
+ 47 58.68M  47 28.03M   0      0  1.01M      0   00:58   00:27   00:31  1.20M
+ 51 58.68M  51 30.50M   0      0  1.06M      0   00:55   00:28   00:27  1.51M
+ 56 58.68M  56 32.91M   0      0  1.10M      0   00:53   00:29   00:24  1.82M
+ 58 58.68M  58 34.44M   0      0  1.12M      0   00:52   00:30   00:22  1.82M
+ 62 58.68M  62 36.65M   0      0  1.15M      0   00:50   00:31   00:19  1.97M
+ 66 58.68M  66 38.80M   0      0  1.18M      0   00:49   00:32   00:17  2.13M
+ 68 58.68M  68 40.35M   0      0  1.19M      0   00:49   00:33   00:16  1.95M
+ 72 58.68M  72 42.33M   0      0  1.21M      0   00:48   00:34   00:14  1.86M
+ 76 58.68M  76 45.18M   0      0  1.26M      0   00:46   00:35   00:11  2.12M
+ 80 58.68M  80 47.01M   0      0  1.27M      0   00:45   00:36   00:09  2.05M
+ 81 58.68M  81 47.98M   0      0  1.26M      0   00:46   00:37   00:09  1.82M
+ 83 58.68M  83 48.98M   0      0  1.26M      0   00:46   00:38   00:08  1.71M
+ 85 58.68M  85 49.94M   0      0  1.25M      0   00:46   00:39   00:07  1.50M
+ 86 58.68M  86 50.75M   0      0  1.24M      0   00:47   00:40   00:07  1.09M
+ 87 58.68M  87 51.59M   0      0  1.23M      0   00:47   00:41   00:06 923.6k
+ 89 58.68M  89 52.59M   0      0  1.22M      0   00:47   00:42   00:05 928.1k
+ 90 58.68M  90 53.35M   0      0  1.21M      0   00:48   00:43   00:05 883.9k
+ 91 58.68M  91 53.87M   0      0  1.19M      0   00:48   00:44   00:04 795.9k
+ 92 58.68M  92 54.39M   0      0  1.18M      0   00:49   00:45   00:04 744.3k
+ 93 58.68M  93 54.89M   0      0  1.16M      0   00:50   00:46   00:04 673.6k
+ 94 58.68M  94 55.18M   0      0  1.15M      0   00:50   00:47   00:03 528.5k
+ 94 58.68M  94 55.73M   0      0  1.13M      0   00:51   00:48   00:03 485.0k
+ 97 58.68M  97 57.17M   0      0  1.14M      0   00:51   00:49   00:02 676.0k
+ 98 58.68M  98 57.75M   0      0  1.13M      0   00:51   00:50   00:01 686.9k
+ 99 58.68M  99 58.28M   0      0  1.12M      0   00:52   00:51   00:01 692.8k
+ 99 58.68M  99 58.61M   0      0  1.10M      0   00:52   00:52         701.9k
+100 58.68M 100 58.68M   0      0  1.10M      0   00:53   00:53         701.9k
+100 58.68M 100 58.68M   0      0  1.10M      0   00:53   00:53         701.9k
+100 58.68M 100 58.68M   0      0  1.10M      0   00:53   00:53         701.9k
++ '[' -s apache-tomee-10.3.0-webprofile.tar.gz ]
++ success=1
++ break
++ '[' -n 1 ]
++ ddist apache-tomee-10.3.0-webprofile.tar.gz.asc tomee/tomee-10.3.0/apache-tomee-10.3.0-webprofile.tar.gz.asc
++ local 'f=apache-tomee-10.3.0-webprofile.tar.gz.asc'
++ shift
++ local 'distFile=tomee/tomee-10.3.0/apache-tomee-10.3.0-webprofile.tar.gz.asc'
++ shift
++ local 'success='
++ local 'distUrl='
++ curl -fSL --retry 3 --connect-timeout 30 https://downloads.apache.org/tomee/tomee-10.3.0/apache-tomee-10.3.0-webprofile.tar.gz.asc -o apache-tomee-10.3.0-webprofile.tar.gz.asc
+  % Total    % Received % Xferd  Average Speed  Time    Time    Time   Current
+                                 Dload  Upload  Total   Spent   Left   Speed
+
+  0      0   0      0   0      0      0      0                              0
+100    870 100    870   0      0   1010      0                              0
+100    870 100    870   0      0   1010      0                              0
+100    870 100    870   0      0   1010      0                              0
++ '[' -s apache-tomee-10.3.0-webprofile.tar.gz.asc ]
++ success=1
++ break
++ '[' -n 1 ]
++ ddist tomee.KEYS tomee/KEYS
++ local 'f=tomee.KEYS'
++ shift
++ local 'distFile=tomee/KEYS'
++ shift
++ local 'success='
++ local 'distUrl='
++ curl -fSL --retry 3 --connect-timeout 30 https://downloads.apache.org/tomee/KEYS -o tomee.KEYS
+  % Total    % Received % Xferd  Average Speed  Time    Time    Time   Current
+                                 Dload  Upload  Total   Spent   Left   Speed
+
+  0      0   0      0   0      0      0      0                              0
+100  82026 100  82026   0      0  51825      0   00:01   00:01              0
+100  82026 100  82026   0      0  51823      0   00:01   00:01              0
+100  82026 100  82026   0      0  51823      0   00:01   00:01              0
++ '[' -s tomee.KEYS ]
++ success=1
++ break
++ '[' -n 1 ]
++ echo '6c0ca666939535e3d4fb091e9155e85fd2dfe6f4f84035f84cb156574ce48c7a920d3f58ba3c1485a9a81b4735b96a1491f36776f17ab2a0084e3b8eb979b167  apache-tomee-10.3.0-webprofile.tar.gz'
++ sha512sum -c -
+apache-tomee-10.3.0-webprofile.tar.gz: OK
++ mktemp -d
++ export 'GNUPGHOME=/tmp/tmp.fPYoatpnmi'
++ gpg --batch --import tomee.KEYS
+gpg: keybox '/tmp/tmp.fPYoatpnmi/pubring.kbx' created
+gpg: key CBAEBE39A46C4CA1: 45 signatures not checked due to missing keys
+gpg: /tmp/tmp.fPYoatpnmi/trustdb.gpg: trustdb created
+gpg: key CBAEBE39A46C4CA1: public key "Matt Hogstrom <hogstrom@apache.org>" imported
+gpg: key 318242FE9A0B1183: public key "Jeremy Whitlock <jwhitlock@apache.org>" imported
+gpg: key E126833F9CF64915: 4 signatures not checked due to missing keys
+gpg: key E126833F9CF64915: public key "Richard Kenneth McGuire (CODE SIGNING KEY) <rickmcguire@apache.org>" imported
+gpg: key C8BB472CD297D428: public key "Jonathan Gallimore <jgallimore@apache.org>" imported
+gpg: Note: third-party key signatures using the SHA1 algorithm are rejected
+gpg: (use option "--allow-weak-key-signatures" to override)
+gpg: key 8EBE7DBE8D050EEF: 3 signatures not checked due to missing keys
+gpg: key 8EBE7DBE8D050EEF: 1 bad signature
+gpg: key 8EBE7DBE8D050EEF: public key "Jarek Gawor (CODE SIGNING KEY) <gawor@apache.org>" imported
+gpg: key 5483E55897ABD9B9: 2 signatures not checked due to missing keys
+gpg: key 5483E55897ABD9B9: public key "Jarek Gawor <gawor@apache.org>" imported
+gpg: key ED340E0E6D545F97: public key "Andy Gumbrecht (TomEE Code Signing) <agumbrecht@tomitribe.com>" imported
+gpg: key A8DE0A4DB863A7C1: public key "Romain Manni-Bucau <rmannibucau@tomitribe.com>" imported
+gpg: key E91287822FDB81B1: 1 signature not checked due to a missing key
+gpg: key E91287822FDB81B1: public key "Mark Struberg (Apache) <struberg@apache.org>" imported
+gpg: key C212662E12F3E1DD: public key "David Blevins <dblevins@apache.org>" imported
+gpg: key 997C8F1A5BE6E4C1: public key "Xu Hai Hong (Ivan Xu @ Geronimo) <xhhsld@gmail.com>" imported
+gpg: key 622B8F2D043F71D8: public key "Jean-Louis Monteiro (CODE SIGNING KEY) <jlmonteiro@apache.org>" imported
+gpg: key 6A62FC8EF17D8FEF: public key "Romain Manni-Bucau <rmannibucau@apache.org>" imported
+gpg: key 67C1227A2678363C: public key "Romain Manni-Bucau <rmannibucau@apache.org>" imported
+gpg: key 3D4683C24EDC64D1: public key "Roberto Cortez (Apache Signing Key) <radcortez@yahoo.com>" imported
+gpg: key CF6FC99C2CC77782: public key "David Blevins <dblevins@tomitribe.com>" imported
+gpg: key C0D95C5181D22F04: public key "David Blevins <david.blevins@gmail.com>" imported
+gpg: key 9C04914D63645D20: public key "David Blevins <dblevins@tomitribe.com>" imported
+gpg: key 358807C52B4B0E23: public key "Jean-Louis Monteiro (CODE SIGNING KEY) <jlmonteiro@apache.org>" imported
+gpg: key DAB472F0E5B8A431: public key "Richard Zowalla (Code Signing Key) <rzo1@apache.org>" imported
+gpg: key 0306A354336B4F0D: 2 signatures not checked due to missing keys
+gpg: key 0306A354336B4F0D: public key "Jonathan S. Fisher <exabrial@gmail.com>" imported
+gpg: key F9FF83A48D339D37: public key "Markus Jung (CODE SIGNING KEY) <jungm@apache.org>" imported
+gpg: key 91EA7956A2DAD9CE: public key "Richard Zowalla (GitHub) <richard.zowalla@hs-heilbronn.de>" imported
+gpg: Total number processed: 23
+gpg:               imported: 23
+gpg: no ultimately trusted keys found
++ gpg --batch --export 85FBBE98D6C37CDA8A7D8FF9F9FF83A48D339D37
++ test -s tomee.gpg
++ pwd
++ gpg --batch --no-default-keyring --keyring /usr/local/tomee/tomee.gpg --verify apache-tomee-10.3.0-webprofile.tar.gz.asc apache-tomee-10.3.0-webprofile.tar.gz
+gpg: Signature made Wed Nov  4 12:37:43 2026 UTC
+gpg:                using RSA key 85FBBE98D6C37CDA8A7D8FF9F9FF83A48D339D37
+gpg: Good signature from "Markus Jung (CODE SIGNING KEY) <jungm@apache.org>" [unknown]
+gpg: Signature notation: manu=2,2.5+1.12,0,3
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: 85FB BE98 D6C3 7CDA 8A7D  8FF9 F9FF 83A4 8D33 9D37
++ tar -zxf apache-tomee-10.3.0-webprofile.tar.gz
++ mv apache-tomee-webprofile-10.3.0/BUILDING.txt apache-tomee-webprofile-10.3.0/CONTRIBUTING.md apache-tomee-webprofile-10.3.0/LICENSE apache-tomee-webprofile-10.3.0/NOTICE apache-tomee-webprofile-10.3.0/README.md apache-tomee-webprofile-10.3.0/RELEASE-NOTES apache-tomee-webprofile-10.3.0/RUNNING.txt apache-tomee-webprofile-10.3.0/bin apache-tomee-webprofile-10.3.0/conf apache-tomee-webprofile-10.3.0/lib apache-tomee-webprofile-10.3.0/logs apache-tomee-webprofile-10.3.0/temp apache-tomee-webprofile-10.3.0/webapps apache-tomee-webprofile-10.3.0/work /usr/local/tomee/
++ rm -rf apache-tomee-webprofile-10.3.0 /tmp/tmp.fPYoatpnmi
++ rm apache-tomee-10.3.0-webprofile.tar.gz apache-tomee-10.3.0-webprofile.tar.gz.asc tomee.KEYS tomee.gpg
++ rm bin/catalina.bat bin/ciphers.bat bin/configtest.bat bin/digest.bat bin/makebase.bat bin/migrate.bat bin/service.bat bin/service.install.as.admin.bat bin/service.remove.as.admin.bat bin/setclasspath.bat bin/shutdown.bat bin/startup.bat bin/tomee.bat bin/tool-wrapper.bat bin/version.bat
++ rm bin/TomEE.amd64.exe bin/TomEE.exe bin/TomEE.x86.exe
++ rm bin/commons-daemon-native.tar.gz bin/tomcat-native.tar.gz
+--> 47ff0c3efbe3
+STEP 11/12: EXPOSE 8080
+--> 1986e16bdae7
+STEP 12/12: CMD ["catalina.sh", "run"]
+COMMIT localhost/tomee-smoke:10.3.0-jre17-Temurin-alpine-webprofile
+--> a42cb49c60e4
+Successfully tagged localhost/tomee-smoke:10.3.0-jre17-Temurin-alpine-webprofile
+a42cb49c60e4286c04b8459a961ede10a7a852dd8b3208164ad4690d87e7ed5a

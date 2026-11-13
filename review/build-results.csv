@@ -1,0 +1,7 @@
+variant,directory,base_image,platform,build,http_startup,http_status,runtime_network,runtime_cgroups,source_commit
+10.3.0-jre17-Semeru-ubuntu-webprofile,TomEE-10.3/jre17/Semeru/ubuntu/webprofile,ibm-semeru-runtimes:open-17-jre-jammy,linux/amd64,PASS,PASS,200,host,disabled (nested sandbox),8a515bdfb91f554b66e73ac61cdeba3497c4d453
+10.3.0-jre17-Temurin-alpine-webprofile,TomEE-10.3/jre17/Temurin/alpine/webprofile,eclipse-temurin:17-jre-alpine,linux/amd64,PASS,PASS,200,host,disabled (nested sandbox),8a515bdfb91f554b66e73ac61cdeba3497c4d453
+10.3.0-jre17-Temurin-ubuntu-webprofile,TomEE-10.3/jre17/Temurin/ubuntu/webprofile,eclipse-temurin:17-jre-noble,linux/amd64,PASS,PASS,200,host,disabled (nested sandbox),8a515bdfb91f554b66e73ac61cdeba3497c4d453
+11.0.0-M2-jre17-Semeru-ubuntu-webprofile,TomEE-11.0/jre17/Semeru/ubuntu/webprofile,ibm-semeru-runtimes:open-17-jre-jammy,linux/amd64,PASS,PASS,200,host,disabled (nested sandbox),8a515bdfb91f554b66e73ac61cdeba3497c4d453
+11.0.0-M2-jre17-Temurin-alpine-webprofile,TomEE-11.0/jre17/Temurin/alpine/webprofile,eclipse-temurin:17-jre-alpine,linux/amd64,PASS,PASS,200,host,disabled (nested sandbox),8a515bdfb91f554b66e73ac61cdeba3497c4d453
+11.0.0-M2-jre17-Temurin-ubuntu-webprofile,TomEE-11.0/jre17/Temurin/ubuntu/webprofile,eclipse-temurin:17-jre-noble,linux/amd64,PASS,PASS,200,host,disabled (nested sandbox),8a515bdfb91f554b66e73ac61cdeba3497c4d453
