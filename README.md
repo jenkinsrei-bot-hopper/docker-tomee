@@ -1,62 +1,62 @@
-# What is TomEE?
+#What is TomEE?
 
-Apache TomEE, pronounced "Tommy", combines Apache Tomcat with enterprise Java technologies.
-We start with Apache Tomcat, add the TomEE components, and package the result as a ready-to-run server.
+Apache TomEE, pronounced "Tommy", is an all-Apache Java EE Web Profile certified stack where Apache Tomcat is top dog.
+Apache TomEE is assembled from a vanilla Apache Tomcat zip file.
+We start with Apache Tomcat, add our jars and zip up the rest. The result is Tomcat with added EE features - TomEE.
 
 %%LOGO%%
 
-## Dockerfile versions
+TomEE 10.2.0 and 10.3.0 are stable releases of Jakarta EE 10.
 
-| Source directory | Apache TomEE release | Release line |
-| --- | --- | --- |
-| `TomEE-10.3/` | `10.3.0` | Current stable 10.x source |
-| `TomEE-10.2/` | `10.2.0` | Previous stable 10.x source |
-| `TomEE-11.0/` | `11.0.0-M2` | 11.0 milestone (pre-release) |
+TomEE 11.0.0-M2 is a Jakarta EE 11 milestone release.
 
-Each release line provides JRE 17, 21, and 25 variants, with Eclipse Temurin on Ubuntu or Alpine and IBM Semeru on Ubuntu. Each runtime/base combination has `webprofile`, `microprofile`, `plus`, and `plume` flavors. See the [Apache TomEE downloads page](https://tomee.apache.org/download.html) for release information.
+Apache TomEE comes with four different flavors, Web Profile, JAX-RS, Plus and Plume.
 
-The Dockerfiles verify a release-specific, pinned SHA512 digest and the detached GPG signature. The signing key is selected by its full fingerprint from the official Apache TomEE `KEYS` file. The 10.2 Dockerfiles are retained unchanged.
+* Apache TomEE Web Profile delivers Servlets, JSP, JSF, JTA, JPA, CDI, Bean Validation and EJB Lite.
+* Apache TomEE JAX-RS (RESTfull Services) delivers the Web Profile plus JAX-RS (RESTfull Services).
+* Apache TomEE Plus delivers all that is in the Web Profile and JAX-RS (RESTfull Services), plus EJB Full, Java EE Connector Architecture, JMS (Java Message Service) and JAX-WS (Web Services).
+* Apache TomEE Plume delivers all that is in the Plus Profile, but includes Mojarra and EclipseLink support.
 
-## Versions and tags
+All Dockerfile files of supported versions can be found at https://github.com/tomitribe/docker-tomee
 
-The complete, authoritative list of published tags is maintained separately in the Docker Official Images [`library/tomee` file](https://github.com/docker-library/official-images/blob/master/library/tomee). A source update here does not itself publish or move Docker Hub tags, so this repository may be ahead of the registry.
+# How to use this image.
 
-Explicit tags follow this pattern (vendor names are case-sensitive):
+Run the default TomEE server (`CMD ["catalina.sh", "run"]`):
 
-```text
-<tomee-version>-jre<java-version>-<vendor>-<os>-<flavor>
-```
+    docker run -it --rm tomee:<java-version>\-<tomeeversion>\-<flavour>
 
-Examples for the new source releases are `10.3.0-jre17-Temurin-alpine-webprofile` and `11.0.0-M2-jre21-Semeru-ubuntu-microprofile`. Short release aliases and aliases that omit default components are defined in `library/tomee`, not by directory names. Stable `latest`/unversioned aliases must not select an 11.0 milestone.
+For example:
 
-## How to use this image
+    docker run -it --rm tomee:10.3.0-jre17-alpine-webprofile
 
-To try the new 10.3.0 source before its corresponding official tags are published, build and run it locally:
+You can test it by visiting `http://container-ip:8080` in a browser or, if you
+need access outside the host, on port 8888:
 
-```sh
-docker build -t local/tomee:10.3.0-jre17-Temurin-alpine-webprofile \
-  TomEE-10.3/jre17/Temurin/alpine/webprofile
-docker run -it --rm -p 8888:8080 \
-  local/tomee:10.3.0-jre17-Temurin-alpine-webprofile
-```
+    docker run -it --rm -p 8888:8080 tomee:10.3.0-jre17-alpine-webprofile
 
-For the 11.0.0-M2 milestone, choose the equivalent path under `TomEE-11.0/` and tag the local image accordingly. Once the desired official tag is present in `library/tomee`, use `tomee:<tag>` instead of the local image name.
+You can then go to `http://localhost:8888` or `http://host-ip:8888` in a
+browser.
 
-The default command is `CMD ["catalina.sh", "run"]`. After publishing port 8080 as above, visit `http://localhost:8888` (or `http://host-ip:8888`).
+The configuration files are available in `/usr/local/tomee/conf/`.  By default,
+no user is included in the "manager-gui" role required to operate the
+"/manager/html" web application.   If you wish to use this app, you must define
+such a user in `tomcat-users.xml`.
 
-The configuration files are available in `/usr/local/tomee/conf/`. By default, no user is included in the `manager-gui` role required to operate the `/manager/html` web application. To use it, define an appropriate user in `tomcat-users.xml`.
+You can also use this image as base image in your Dockerfile file. 
+Then you can add your application by running next Dockerfile operation:
 
-You can also use a published image as a base image and add your application:
+    ADD <locationofapplication>/<warfile> /usr/local/tomee/webapps/<warfile>
 
-```dockerfile
-FROM tomee:<published-tag>
-COPY <application>.war /usr/local/tomee/webapps/
-```
+# Issues & Contributors
 
-## Issues and contributors
+Any issue can be notified to Tomitribe team by using next link  https://github.com/tomitribe/docker-tomee/issues
 
-Report issues to the [Tomitribe team](https://github.com/tomitribe/docker-tomee/issues). Contributions are welcome through a fork of [tomitribe/docker-tomee](https://github.com/tomitribe/docker-tomee) and a pull request.
+Contributions are more than welcome and can be done by forking https://github.com/tomitribe/docker-tomee repository and sending a PR.
 
-## License
+Note that project contains three scripts which can be used to generate a _tomee_ version.
 
-Apache TomEE and the files used to produce these Docker images are licensed under the [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0).
+The most important file is one called `Dockerfile.template` which is used as a based `Dockerfile`.
+
+# License
+
+Apache TomEE comes with an APL v2 version (http://www.apache.org/licenses/LICENSE-2.0) and all files provided to produce the Docker images are APL v2 as well.
